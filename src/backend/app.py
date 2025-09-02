@@ -11,7 +11,7 @@ from flask import Flask, request, session, url_for, redirect, render_template, g
 # Configuration
 ################################################################################
 
-DATABASE_PATH = r'C:\Users\marti\Desktop\whoknows_variations\src\backend\temp\whoknows.db'
+DATABASE_PATH = r'../whoknows.db'
 PER_PAGE = 30
 DEBUG = False
 SECRET_KEY = 'development key'
