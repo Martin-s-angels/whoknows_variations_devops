@@ -15,9 +15,12 @@ get '/' do
 
     x = 42
 
-    erb "<%= foo %>", :locals => {:foo => "bar"}
-    erb "<%= x %>", :locals => {:x => x}
+    #erb "<%= foo %>", :locals => {:foo => "bar", :x => x}
+    #erb "<%= x %>", :locals => {:x => x}
 
-    erb :'templates/erb-example.html'
+    #erb :'templates/erb-example.html', :locals => {:foo => "bar", :x => x}
+    erb :'templates/erb-example.html', :locals => {foo: "bar",
+                                                   x: x}
+
 end
 
