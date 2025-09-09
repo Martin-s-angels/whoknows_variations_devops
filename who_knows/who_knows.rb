@@ -13,8 +13,11 @@ get '/' do
     # content_type :json
     # {message: "Hello Frank!"}.to_json
 
+    x = 42
 
     erb "<%= foo %>", :locals => {:foo => "bar"}
-    erb :'templates/weather.html'
+    erb "<%= x %>", :locals => {:x => x}
+
+    erb :'templates/erb-example.html'
 end
 
