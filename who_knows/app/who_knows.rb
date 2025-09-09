@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'json'
+require 'erb'
 
 set :port, 8080
 
