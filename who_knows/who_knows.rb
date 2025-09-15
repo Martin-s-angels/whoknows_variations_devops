@@ -4,8 +4,10 @@ require 'erb'
 
 set :port, 8080
 #set :settings.root, "./../"
- set :root, File.dirname(__FILE__)
+#set :root, File.dirname(__FILE__)
 #set :views, settings.root
+
+set :views, "app/src/view"
 
 puts "Views: " << String(settings.views)
 
