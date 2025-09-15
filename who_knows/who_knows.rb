@@ -2,13 +2,14 @@ require 'sinatra'
 require 'json'
 require 'erb'
 require 'dotenv/load'
+require_relative 'app/src/controller/controller.rb'
 
 set :port, 8080
 set :views, "app/src/view"
 
 puts "Views: " << String(settings.views)
 
-get '/' do
+get '/test' do
 
   #test erb (remove later):
   x = 42
