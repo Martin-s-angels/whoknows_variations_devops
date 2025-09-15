@@ -2,15 +2,21 @@
 #run this: bundle exec ruby queries.rb
 
 require 'sqlite3'
+require 'dotenv/load'
 
 Page = Struct.new(:id, :title, :language, :content)
 
 begin
   db = SQLite3::Database.new "whoknows.db"
 
+
   def insert_user_query(db)
-    query =   "INSERT INTO users (username, email, password) VALUES (?, ?, ?)",
-    [ENV['TEST_USERNAME'], ENV['TEST_EMAIL'], ENV['TEST_PASSWORD']]
+    username = ENV['TEST_USERNAME']
+    email    = ENV['TEST_EMAIL']
+    password = ENV['TEST_PASSWORD']
+
+    query = "INSERT INTO users (username, email, password) VALUES (?,?,?)",
+    [username, email, password]
     db.execute(query)
     db.last_insert_row_id
   end
