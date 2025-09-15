@@ -1,3 +1,6 @@
+#Run queries on the database
+#run this: bundle exec ruby queries.rb
+
 require 'sqlite3'
 
 Page = Struct.new(:id, :title, :language, :content)
@@ -6,7 +9,8 @@ begin
   db = SQLite3::Database.new "whoknows.db"
 
   def insert_user_query(db)
-    query = "INSERT INTO users (username, email, password) VALUES ('johndoe', 'john@example.com', '5f4dcc3b5aa765d61d8327deb882cf99')"
+    query =   "INSERT INTO users (username, email, password) VALUES (?, ?, ?)",
+    [ENV['TEST_USERNAME'], ENV['TEST_EMAIL'], ENV['TEST_PASSWORD']]
     db.execute(query)
     db.last_insert_row_id
   end
