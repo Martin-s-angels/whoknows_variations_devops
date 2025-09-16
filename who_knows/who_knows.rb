@@ -2,13 +2,14 @@ require 'sinatra'
 require 'json'
 require 'erb'
 require 'dotenv/load'
+require_relative 'app/src/controller/controller.rb'
 
 set :port, 8080
-set :root, File.dirname(__FILE__)
+set :views, "app/src/view"
 
-puts "Views: " << String(settings.views) #trouble-shooting. Remove, probably.
+puts "Views: " << String(settings.views)
 
-get '/' do
+get '/test' do
 
   #test erb (remove later):
   x = 42
@@ -24,4 +25,9 @@ end
 #test dotenv:
 puts "Connecting to database at #{ENV['DATABASE_URL']}"
 puts "Using API key #{ENV['API_KEY']}"
+
+get '/pages' do
+  @pages = DB.execute("SELECT * FROM pages")
+  erb :index
+end
 

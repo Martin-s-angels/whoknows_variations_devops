@@ -4,9 +4,15 @@ gem 'sinatra'
 gem 'puma'
 gem 'rerun'
 
-gem 'test-unit'
-gem 'rack-test'
+gem 'sqlite3'
 
 gem 'dotenv'
 
 gem 'erb'
+
+gem 'test-unit'
+gem 'rack-test'
+
+
+
+
