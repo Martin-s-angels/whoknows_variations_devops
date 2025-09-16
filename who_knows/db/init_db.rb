@@ -4,26 +4,9 @@
 
 require 'sqlite3'
 
+
 db = SQLite3::Database.new 'whoknows.db'
 
-schema = <<~SQL
-  DROP TABLE IF EXISTS users;
+schema = File.new('./schema.sql') #File.absolute_path('~/schema.sql')
 
-  CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT NOT NULL UNIQUE,
-    email TEXT NOT NULL UNIQUE,
-    password TEXT NOT NULL
-  );
-
-
-  CREATE TABLE IF NOT EXISTS pages (
-    title TEXT PRIMARY KEY UNIQUE,
-    url TEXT NOT NULL UNIQUE,
-    language TEXT NOT NULL CHECK(language IN ('en', 'da')) DEFAULT 'en',
-    last_updated TIMESTAMP,
-    content TEXT NOT NULL
-  );
-SQL
-
-db.execute_batch(schema)
+db.execute_batch(File.read(schema))
