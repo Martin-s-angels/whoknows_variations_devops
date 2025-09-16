@@ -1,7 +1,9 @@
-set :port, 8080
+#set :port, 8080
 
 #SERVE HTML PAGES:
 get '/' do
+  "Hello World #{params[:name]}".strip #testing rack-test. REMOVE.
+
   # serve root page
 end
 

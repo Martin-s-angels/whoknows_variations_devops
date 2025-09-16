@@ -4,8 +4,8 @@ gem 'sinatra'
 gem 'puma'
 gem 'rerun'
 
-gem 'rack'
-gem 'rackup'
+gem 'test-unit'
+gem 'rack-test'
 
 gem 'dotenv'
 
