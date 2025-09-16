@@ -26,3 +26,8 @@ end
 puts "Connecting to database at #{ENV['DATABASE_URL']}"
 puts "Using API key #{ENV['API_KEY']}"
 
+get '/pages' do
+  @pages = DB.execute("SELECT * FROM pages")
+  erb :index
+end
+
