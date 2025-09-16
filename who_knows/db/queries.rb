@@ -9,7 +9,7 @@ Page = Struct.new(:id, :title, :language, :content)
 begin
   db = SQLite3::Database.new "whoknows.db"
 
-
+  #insert default user
   def insert_user_query(db)
     username = ENV['TEST_USERNAME']
     email    = ENV['TEST_EMAIL']

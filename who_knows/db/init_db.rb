@@ -7,6 +7,6 @@ require 'sqlite3'
 
 db = SQLite3::Database.new 'whoknows.db'
 
-schema = File.new('./schema.sql') #File.absolute_path('~/schema.sql')
+schema = File.new('./schema.sql')#get schema as File, so we may read it.
 
 db.execute_batch(File.read(schema))
