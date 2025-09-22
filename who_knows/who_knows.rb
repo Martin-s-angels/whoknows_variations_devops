@@ -7,6 +7,8 @@ require_relative 'app/src/controller/controller.rb'
 set :port, 8080
 set :views, "app/src/view"
 
+#set :layout, :'app/src/view/templates/layout.html.erb'#File.new('app/src/view/templates/layout.html.erb')
+
 puts "Views: " << String(settings.views)
 
 get '/test' do
@@ -18,8 +20,18 @@ get '/test' do
     #erb "<%= x %>", :locals => {:x => x}
 
     #erb :'templates/erb-example.html', :locals => {:foo => "bar", :x => x}
-  erb :'templates/erb-example.html', :locals => {foo: "bar",
-                                                 x: x}
+
+
+
+  erb :'templates/example.html',
+      :locals => {foo: "bar", x: x},
+      :layout => :'templates/layout.html'
+
+
+    # active_html: File.new('./app/src/view/templates/erb-example.html.erb') }
+
+  #erb :'templates/erb-example.html', :locals => {foo: "bar",
+  #                                               x: x}
 end
 
 #test dotenv:

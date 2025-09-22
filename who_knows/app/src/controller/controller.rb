@@ -7,6 +7,7 @@ get '/' do
   # serve root page
   erb :'templates/home.html'
 
+
 end
 
 get '/weather' do
