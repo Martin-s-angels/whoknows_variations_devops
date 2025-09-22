@@ -22,14 +22,7 @@ get '/test' do
     #erb :'templates/erb-example.html', :locals => {:foo => "bar", :x => x}
 
 
-
-  erb :'templates/example.html',
-      :locals => {foo: "bar", x: x},
-      :layout => :'templates/layout.html'
-
-  erb :'templates/layout.html', :locals => {foo: "bar", x: x} do
-    erb :'templates/example.html'
-  end
+  erb :'templates/layout.html', :locals => {foo: "bar", x: x}
 
     # active_html: File.new('./app/src/view/templates/erb-example.html.erb') }
 

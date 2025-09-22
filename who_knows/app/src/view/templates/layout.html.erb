@@ -8,7 +8,10 @@
 
 <p> app/src/view/templates/layout.html.erb </p>
 
-<%= erb :'templates/example.html', :locals => {foo: foo, x: x} %>
+<%= if 2 + 2 == 4 #find and display correct erb-file
+      erb :'templates/example.html', :locals => {foo: foo, x: x}
+    end
+%>
 
 </body>
 </html>
