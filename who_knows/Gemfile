@@ -7,4 +7,4 @@ gem 'rackup'
 gem 'rerun'
 gem 'dotenv'
 gem 'erb'
-
+gem 'rubocop'
