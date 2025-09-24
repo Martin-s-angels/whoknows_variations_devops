@@ -2,7 +2,7 @@ require 'sinatra'
 require 'json'
 require 'erb'
 require 'dotenv/load'
-require_relative 'app/src/controller/controller.rb'
+require_relative 'app/controller/controller.rb'
 
 set :port, 8080
 set :views, "app/src/view"
