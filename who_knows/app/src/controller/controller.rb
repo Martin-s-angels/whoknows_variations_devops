@@ -1,6 +1,6 @@
 require 'erb'
 
-set :port, 8080
+#set :port, 8080
 
 #SERVE HTML PAGES:
 get '/' do

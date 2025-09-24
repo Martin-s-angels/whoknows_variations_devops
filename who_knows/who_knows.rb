@@ -11,6 +11,8 @@ puts "Views: " << String(settings.views)
 
 get '/test' do
 
+  
+
   #test erb (remove later):
   x = 42
 
@@ -20,6 +22,8 @@ get '/test' do
     #erb :'templates/erb-example.html', :locals => {:foo => "bar", :x => x}
   erb :'templates/erb-example.html', :locals => {foo: "bar",
                                                  x: x}
+
+
 end
 
 #test dotenv:
