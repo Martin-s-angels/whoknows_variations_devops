@@ -5,25 +5,25 @@ set :port, 8080
 #SERVE HTML PAGES:
 get '/' do
   # serve root page
-  erb :'templates/home.html'
+  erb :search
 
 end
 
 get '/weather' do
   #serve weather page. later.
-  erb :'templates/weather.html'
+  erb :weather
 
 end
 
 get '/register' do
   #serve register page
-  erb :'templates/register.html'
+  erb :register
 
 end
 
 get '/login' do
   #serve login page
-  erb :'templates/login.html'
+  erb :login
 
 end
 
