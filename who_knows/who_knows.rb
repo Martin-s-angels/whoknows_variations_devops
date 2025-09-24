@@ -5,7 +5,7 @@ require 'dotenv/load'
 require_relative 'app/controller/controller.rb'
 
 set :port, 8080
-set :views, "app/src/view"
+set :views, "app/view"
 
 #set :layout, :'app/src/view/templates/layout.html.erb'#File.new('app/src/view/templates/layout.html.erb')
 
@@ -22,7 +22,9 @@ get '/test' do
     #erb :'templates/erb-example.html', :locals => {:foo => "bar", :x => x}
 
 
-  erb :'templates/layout.html', :locals => {foo: "bar", x: x}
+  # erb :'templates/layout.html', :locals => {foo: "bar", x: x}
+  erb :index
+
 
     # active_html: File.new('./app/src/view/templates/erb-example.html.erb') }
 
