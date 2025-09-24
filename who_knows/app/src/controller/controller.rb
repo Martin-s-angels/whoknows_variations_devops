@@ -4,6 +4,10 @@ set :port, 8080
 
 #SERVE HTML PAGES:
 get '/' do
+  query = params['q'] # request parameter
+
+  puts "q=" + query #print variable in console. remove later.
+
   # serve root page
   erb :'templates/home.html'
 

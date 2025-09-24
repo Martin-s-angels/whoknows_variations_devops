@@ -7,7 +7,7 @@ require_relative 'app/src/controller/controller.rb'
 set :port, 8080
 set :views, "app/src/view"
 
-puts "Views: " << String(settings.views)
+puts "Views: " << String(settings.views) #
 
 get '/test' do
 
