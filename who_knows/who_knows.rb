@@ -9,7 +9,7 @@ set :views, "app/view/templates"
 
 #set :layout, :'app/src/view/templates/layout.html.erb'#File.new('app/src/view/templates/layout.html.erb')
 
-puts "Views: " << String(settings.views)
+puts "Views: " << String(settings.views) #
 
 get '/test' do
 
