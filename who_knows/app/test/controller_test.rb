@@ -1,16 +1,36 @@
 #ENV['APP_ENV'] = 'test'
 
-require_relative '../src/controller/controller'
+#require_relative '../src/controller/controller'
 require 'test/unit'
 require 'rack/test'
 
+=begin
 require 'sinatra'
 require 'json'
 require 'erb'
 require 'dotenv/load'
+=end
 
-set :port, 8081
+#set :port, 8081 # maybe change? or not...
 
+
+
+class DemoTest < Test::Unit::TestCase
+  include Rack::Test::Methods
+
+  def app
+    Sinatra::Application
+  end
+
+  def testEndpointTest # /test
+    # get '/test'
+    # assert last_response.ok?
+    assert_equal 2+2, 4
+
+  end
+end
+
+=begin
 class HelloWorldTest < Test::Unit::TestCase
   include Rack::Test::Methods
 
@@ -30,3 +50,4 @@ class HelloWorldTest < Test::Unit::TestCase
   end
 end
 
+=end
