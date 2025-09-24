@@ -1,5 +1,6 @@
 require 'erb'
 
+
 set :port, 8080
 
 #SERVE HTML PAGES:
@@ -9,11 +10,7 @@ get '/' do
 
 end
 
-get '/weather' do
-  #serve weather page. later.
-  erb :weather
 
-end
 
 get '/register' do
   #serve register page
