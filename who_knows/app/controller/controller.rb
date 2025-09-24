@@ -3,6 +3,9 @@ require 'erb'
 #set :port, 8080
 
 #SERVE HTML PAGES:
+
+=begin
+
 get '/' do
   query = params['q'] # request parameter
 
@@ -11,6 +14,12 @@ get '/' do
   # serve root page
   erb :search
 
+
+end
+=end
+
+get '/' do
+  "Hello World #{params[:name]}".strip
 end
 
 get '/weather' do
