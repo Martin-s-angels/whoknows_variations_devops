@@ -16,18 +16,20 @@ class DemoTest < Test::Unit::TestCase
     Sinatra::Application
   end
 
-  def testEndpointTest # /test
+  def testHelloWorld
     #get '/?q=test'
     #get '/test'
 
-    get '/'
+    get '/', :name=>'Frank' #Mock web layer
 
     assert last_response.ok?
-    assert_equal "Hello World", last_response.body
 
-    assert_equal 2+2, 4
+    assert_equal "Hello World Frank", last_response.body
+    assert last_response.body.include?('Frank')
+
+    assert_equal 2+2, 4 #regular unit testing
   end
-  
+
 end
 
 =begin
