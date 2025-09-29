@@ -1,11 +1,11 @@
 require 'erb'
+require 'sinatra'
 
 #set :port, 8080
 
 #SERVE HTML PAGES:
 
 =begin
-
 get '/' do
   query = params['q'] # request parameter
 

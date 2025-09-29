@@ -5,7 +5,7 @@ require 'dotenv/load'
 require_relative './app/controller/controller.rb'
 
 set :port, 8080
-set :views, "app/view/templates"
+set :views, "app/view/templates/"
 
 get '/test' do
 
