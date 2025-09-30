@@ -15,9 +15,8 @@ begin
     email    = ENV['TEST_EMAIL']
     password = ENV['TEST_PASSWORD']
 
-    query = "INSERT INTO users (username, email, password) VALUES (?,?,?)",
-    [username, email, password]
-    db.execute(query)
+    query = "INSERT INTO users (username, email, password) VALUES (?,?,?)"
+    db.execute(query,[username, email, password])
     db.last_insert_row_id
   end
 
