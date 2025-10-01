@@ -1,28 +1,29 @@
-#Run queries on the database
-#run this: bundle exec ruby queries.rb
-
+#To run this file with sqlite: bundle exec ruby queries.rb 
+#Make sure to have 
 require 'sqlite3'
 require 'dotenv/load'
 
-Page = Struct.new(:id, :title, :language, :content)
+Dotenv.load('../dotenv/.env') #load .env from path
+
+Page = Struct.new(:id, :title, :language, :content) #??
 
 begin
   db = SQLite3::Database.new "whoknows.db"
 
-  #insert default user
+  #insert default user. (On test db)
   def insert_user_query(db)
     username = ENV['TEST_USERNAME']
-    email    = ENV['TEST_EMAIL']
+    email    = ENV['TEST_EMAIL'] #unique
     password = ENV['TEST_PASSWORD']
 
     query = "INSERT INTO users (username, email, password) VALUES (?,?,?)"
-    db.execute(query,[username, email, password])
-    db.last_insert_row_id
+    db.execute(query,[username, email, password]) #run query
+    db.last_insert_row_id #Auto increment
   end
 
   def get_user_id_query(db)
     query = "SELECT id FROM users WHERE username = 'johndoe'"
-    row = db.get_first_row(query)
+    row = db.get_first_row(query) #only get first row
     row ? row[0] : nil
   end
 
@@ -57,6 +58,8 @@ begin
     end
     pages
   end
+
+### run methods:
 
   last_id = insert_user_query(db)
   if last_id
@@ -98,5 +101,5 @@ begin
 rescue SQLite3::Exception => e
   puts "Database error: #{e}"
 ensure
-  db.close if db
+  db.close if db #close db.
 end
