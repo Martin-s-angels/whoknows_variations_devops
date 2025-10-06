@@ -167,4 +167,6 @@ cython_debug/
 #.vscode
 .vscode/
 
+**/*.db
+**/whoknows.db
 *.db

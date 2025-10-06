@@ -5,8 +5,10 @@
 require 'sqlite3'
 
 
-db = SQLite3::Database.new 'whoknows.db'
+db = SQLite3::Database.new 'whoknows.db' #instantiate db
 
-schema = File.new('./schema.sql')#get schema as File, so we may read it.
+schema_sql = File.read(File.join(__dir__, 'schema.sql'))#get schema as File, so we may read it.
 
-db.execute_batch(File.read(schema))
+db.execute_batch(schema_sql) #run schema
+
+
