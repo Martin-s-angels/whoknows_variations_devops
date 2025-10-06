@@ -1,0 +1,363 @@
+openapi: 3.0.0
+info:
+  title: WhoKnows
+  version: 1.0.0
+  description: ''
+servers:
+  - url: '{{baseUrl}}'
+paths:
+  /api/search:
+    parameters: []
+    get:
+      summary: Search
+      tags: &ref_0
+        - api
+      parameters:
+        - name: q
+          in: query
+          required: false
+          description: '(Required) '
+          example: 'velit '
+          schema:
+            type: string
+        - name: language
+          in: query
+          required: false
+          description: Language code (e.g., 'en')
+          example: dolore
+          schema:
+            type: string
+        - name: Accept
+          in: header
+          required: false
+          example: application/json
+          schema:
+            type: string
+      responses:
+        '200':
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              example: application/json
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items: {}
+              example:
+                data: []
+        '422':
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              example: application/json
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  message:
+                    type: string
+              example:
+                statusCode: 422
+                message: Lorem do proident
+  /api/weather:
+    parameters: []
+    get:
+      summary: Weather
+      tags: *ref_0
+      parameters:
+        - name: Accept
+          in: header
+          required: false
+          example: application/json
+          schema:
+            type: string
+      responses:
+        '200':
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              example: application/json
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+              example:
+                data: {}
+  /api/register:
+    parameters: []
+    post:
+      summary: Register
+      tags: *ref_0
+      parameters:
+        - name: Content-Type
+          in: header
+          required: false
+          example: application/x-www-form-urlencoded
+          schema:
+            type: string
+        - name: Accept
+          in: header
+          required: false
+          example: application/json
+          schema:
+            type: string
+      responses:
+        '200':
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              example: application/json
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  message:
+                    type: string
+              example:
+                statusCode: 26689783
+                message: eiusmod voluptate
+        '422':
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              example: application/json
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        loc:
+                          type: array
+                          items:
+                            type: string
+                        msg:
+                          type: string
+                        type:
+                          type: string
+              example:
+                detail:
+                  - loc:
+                      - amet id
+                      - incidi
+                    msg: dolore Duis dolor
+                    type: velit magna
+                  - loc:
+                      - ullamco Lorem tempor
+                      - sit dolor velit ex id
+                    msg: exercitation anim Excepteur
+                    type: ad
+  /api/login:
+    parameters: []
+    post:
+      summary: Login
+      tags: *ref_0
+      parameters:
+        - name: Content-Type
+          in: header
+          required: false
+          example: application/x-www-form-urlencoded
+          schema:
+            type: string
+        - name: Accept
+          in: header
+          required: false
+          example: application/json
+          schema:
+            type: string
+      responses:
+        '200':
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              example: application/json
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  message:
+                    type: string
+              example:
+                statusCode: 26689783
+                message: eiusmod voluptate
+        '422':
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              example: application/json
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        loc:
+                          type: array
+                          items:
+                            type: string
+                        msg:
+                          type: string
+                        type:
+                          type: string
+              example:
+                detail:
+                  - loc:
+                      - amet id
+                      - incidi
+                    msg: dolore Duis dolor
+                    type: velit magna
+                  - loc:
+                      - ullamco Lorem tempor
+                      - sit dolor velit ex id
+                    msg: exercitation anim Excepteur
+                    type: ad
+  /api/logout:
+    parameters: []
+    get:
+      summary: Logout
+      tags: *ref_0
+      parameters:
+        - name: Accept
+          in: header
+          required: false
+          example: application/json
+          schema:
+            type: string
+      responses:
+        '200':
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              example: application/json
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  message:
+                    type: string
+              example:
+                statusCode: 26689783
+                message: eiusmod voluptate
+  /:
+    parameters: []
+    get:
+      summary: Serve Root Page
+      tags: &ref_1 []
+      parameters:
+        - name: Accept
+          in: header
+          required: false
+          example: text/html
+          schema:
+            type: string
+      responses:
+        '200':
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              example: text/html
+          description: Successful Response
+  /weather:
+    parameters: []
+    get:
+      summary: Serve Weather Page
+      tags: *ref_1
+      parameters:
+        - name: Accept
+          in: header
+          required: false
+          example: text/html
+          schema:
+            type: string
+      responses:
+        '200':
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              example: text/html
+          description: Successful Response
+  /register:
+    parameters: []
+    get:
+      summary: Serve Register Page
+      tags: *ref_1
+      parameters:
+        - name: Accept
+          in: header
+          required: false
+          example: text/html
+          schema:
+            type: string
+      responses:
+        '200':
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              example: text/html
+          description: Successful Response
+  /login:
+    parameters: []
+    get:
+      summary: Serve Login Page
+      tags: *ref_1
+      parameters:
+        - name: Accept
+          in: header
+          required: false
+          example: text/html
+          schema:
+            type: string
+      responses:
+        '200':
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              example: text/html
+          description: Successful Response
