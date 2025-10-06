@@ -3,6 +3,9 @@ require 'json'
 require 'erb'
 require 'dotenv/load'
 require_relative 'app/controller/controller.rb'
+require_relative 'app/model/weather.rb'
+
+Dotenv.load 
 
 set :port, 8080
 set :views, "app/view/templates"
@@ -41,3 +44,13 @@ get '/pages' do
   erb :index
 end
 
+
+get '/weather' do
+  weather = fetch_weather
+  error = nil
+
+  unless weather
+    error = "unable to fetch weather data"
+  end
+  erb :weather, locals: { weather: weather, error: error }
+end

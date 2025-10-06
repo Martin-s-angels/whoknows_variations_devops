@@ -1,5 +1,20 @@
-<!-- weather -->
-<p> weather </p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather</title>
+</head>
+<body>
+    <h1>weather</h1>
 
+    <% if weather && weather["location"] && weather["current"] %>
+        <h2>weather in <%= weather["location"]["name"] %></h2>
+        <p>temperature: <%= weather["current"]["temp_c"] %> °C</p>
 
+    <% else %>
+        <p>no weather data available</p>
+    <% end %>
 
+</body>
+</html>
