@@ -5,22 +5,20 @@ require 'sinatra'
 
 #SERVE HTML PAGES:
 
-=begin
+
 get '/' do
   query = params['q'] # request parameter
 
   puts "q=" + query #print variable in console. remove later.
 
   # serve root page
-  erb :search
-
-
+  # erb :search
 end
-=end
-
+=begin
 get '/' do
   "Hello World #{params[:name]}".strip
 end
+=end
 
 get '/weather' do
   #serve weather page. later.

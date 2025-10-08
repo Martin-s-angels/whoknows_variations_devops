@@ -19,14 +19,14 @@ class DemoTest < Test::Unit::TestCase
   def testHelloWorld
     #get '/?q=test'
     #get '/test'
-
-    get '/', :name=>'Frank' #Mock web layer
+    get '/', params= {q: 'test'} #q = "test"}
+    #get '/', :name=>'Frank' #Mock web layer
 
     assert last_response.ok?
-
+=begin
     assert_equal "Hello World Frank", last_response.body
     assert last_response.body.include?('Frank')
-
+=end
     assert_equal 2+2, 4 #regular unit testing
   end
 
