@@ -1,7 +1,8 @@
 require 'erb'
 require 'sinatra'
 
-#set :port, 8080
+
+set :port, 8080
 
 #SERVE HTML PAGES:
 
@@ -14,17 +15,6 @@ get '/' do
 
   # serve root page
   erb :search
-end
-=begin
-get '/' do
-  "Hello World #{params[:name]}".strip
-end
-=end
-
-get '/weather' do
-  #serve weather page. later.
-  erb :weather
-
 end
 
 get '/register' do
