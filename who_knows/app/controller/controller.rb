@@ -9,9 +9,8 @@ require 'sinatra'
 get '/' do
   query = params['q'] # request parameter
 
-  puts "q=" + query #print variable in console. remove later.
-  
-  query
+  #puts "q=" + query #print variable in console. remove later.
+  #query #remove. Test test.
 
   # serve root page
   erb :search

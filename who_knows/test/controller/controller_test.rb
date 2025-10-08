@@ -1,13 +1,10 @@
 ENV['APP_ENV'] = 'test'
-require_relative '../../app/controller/controller'
 
-#require_relative '../../who_knows'
 require 'test/unit'
 require 'rack/test'
 
-set :views, "/app/view/templates" #here??
-
-# set :port, 8081 # maybe change? or not...
+require_relative '../../app/controller/controller'
+set :views, "../../app/view/templates" # works for now.
 
 class DemoTest < Test::Unit::TestCase
   include Rack::Test::Methods
@@ -16,27 +13,16 @@ class DemoTest < Test::Unit::TestCase
     Sinatra::Application
   end
 
-  def testHelloWorld
-    #get '/?q=test'
-    #get '/test'
-    get '/', params= {q: 'test'} #q = "test"}
-    #get '/', :name=>'Frank' #Mock web layer
-
+  def test_search_endpoint
+    get '/', params= {q: 'test'}#Mock web layer
     
     assert last_response.ok?
-    assert_equal 'test', last_response.body
+    assert last_response.body.include?('search') #last_response.body is the full html file.
 
-    puts last_response.body
-    
-    #assert last_response.body.include?('test')
+    #puts last_response.body #remove
+    #assert_equal 'test', last_response.body #remove
 
-    
-
-=begin
-    assert_equal "Hello World Frank", last_response.body
-    assert last_response.body.include?('Frank')
-=end
-    assert_equal 2+2, 4 #regular unit testing
+    assert_equal 2+2, 4 #regular unit testing #remove.
   end
 
 end
