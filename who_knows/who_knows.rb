@@ -2,19 +2,18 @@ require 'sinatra'
 require 'json'
 require 'erb'
 require 'dotenv/load'
+
 require_relative 'app/controller/controller.rb'
 require_relative 'app/model/weather.rb'
 
 Dotenv.load 
 
 set :port, 8080
-set :views, "app/view/templates"
-
-#set :layout, :'app/src/view/templates/layout.html.erb'#File.new('app/src/view/templates/layout.html.erb')
-
-puts "Views: " << String(settings.views) #
+set :views, "app/view/templates/"
 
 get '/test' do
+
+  
 
   #test erb (remove later):
   x = 42
@@ -25,6 +24,7 @@ get '/test' do
     #erb :'templates/erb-example.html', :locals => {:foo => "bar", :x => x}
 
 
+
   # erb :'templates/layout.html', :locals => {foo: "bar", x: x}
   erb :index
 
@@ -33,6 +33,8 @@ get '/test' do
 
   #erb :'templates/erb-example.html', :locals => {foo: "bar",
   #                                               x: x}
+
+
 end
 
 #test dotenv:
