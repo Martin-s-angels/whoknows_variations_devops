@@ -10,9 +10,11 @@ get '/' do
   query = params['q'] # request parameter
 
   puts "q=" + query #print variable in console. remove later.
+  
+  query
 
   # serve root page
-  # erb :search
+  erb :search
 end
 =begin
 get '/' do

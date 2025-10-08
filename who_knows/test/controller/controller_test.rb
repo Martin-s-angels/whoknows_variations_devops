@@ -22,7 +22,16 @@ class DemoTest < Test::Unit::TestCase
     get '/', params= {q: 'test'} #q = "test"}
     #get '/', :name=>'Frank' #Mock web layer
 
+    
     assert last_response.ok?
+    assert_equal 'test', last_response.body
+
+    puts last_response.body
+    
+    #assert last_response.body.include?('test')
+
+    
+
 =begin
     assert_equal "Hello World Frank", last_response.body
     assert last_response.body.include?('Frank')
