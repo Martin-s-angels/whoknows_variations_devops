@@ -2,7 +2,18 @@ source 'https://rubygems.org/'
 
 gem 'sinatra'
 gem 'puma'
-gem 'rackup'
 gem 'rerun'
+
+gem 'sqlite3'
+
 gem 'dotenv'
+
 gem 'erb'
+
+gem 'test-unit'
+gem 'rack-test'
+
+gem 'rubocop'
+
+gem 'httparty'
+
