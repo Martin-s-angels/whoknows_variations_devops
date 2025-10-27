@@ -4,11 +4,11 @@ services:
       dockerfile: dockerfile.dev
     image: ghcr.io/who-knows/whoknows_variations_server:latest
     env_file:
-      - backend/.env
+      - dotenv/.env
     ports:
       - "8080:8080"
-    volumes:
-      - ./backend:/usr/src/app  # Bind mount for live development
+    # volumes:
+    #   - ./backend:/usr/src/app  # Bind mount for live development
     environment:
       - FLASK_ENV=development
     networks:
