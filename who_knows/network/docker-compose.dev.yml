@@ -1,14 +1,15 @@
 services:
   whoknows_flask:
     build:
-      dockerfile: dockerfile.dev
+      context: ..
+      dockerfile: network/dockerfile.dev
     image: ghcr.io/who-knows/whoknows_variations_server:latest
     env_file:
       - dotenv/.env
     ports:
       - "8080:8080"
-    # volumes:
-    #   - ./backend:/usr/src/app  # Bind mount for live development
+    volumes:
+      - ..:/who_knows  # Bind mount for live development
     environment:
       - FLASK_ENV=development
     networks:

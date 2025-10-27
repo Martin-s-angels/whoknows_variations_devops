@@ -3,7 +3,7 @@
 FROM ruby
 
 WORKDIR /who_knows
-COPY . .
+COPY .. .
 
 RUN bundle install
 
