@@ -15,7 +15,6 @@ services:
       - FLASK_ENV=development
     networks:
       - my_network
-
   whoknows_nginx:
     build:
       context: ./network
