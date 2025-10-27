@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   whoknows_flask:
     build:
@@ -15,7 +14,7 @@ services:
       - FLASK_ENV=development
     networks:
       - my_network
-      
+
   whoknows_nginx:
     build:
       context: ./network
