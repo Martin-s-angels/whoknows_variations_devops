@@ -1,8 +1,7 @@
 services:
   whoknows_flask:
     build:
-      context: ./network
-      dockerfile: Dockerfile.dev
+      dockerfile: dockerfile.dev
     image: ghcr.io/who-knows/whoknows_variations_server:latest
     env_file:
       - backend/.env
@@ -17,8 +16,7 @@ services:
 
   whoknows_nginx:
     build:
-      context: ./network
-      dockerfile: Dockerfile
+      dockerfile: dockerfile
     image: ghcr.io/who-knows/whoknows_variations_nginx:latest
     ports:
       - "80:80"
