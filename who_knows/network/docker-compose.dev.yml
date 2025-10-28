@@ -3,9 +3,7 @@ services:
     build:
       context: ..
       dockerfile: network/dockerfile.dev
-    image: ghcr.io/who-knows/whoknows_variations_server:latest
-    env_file:
-      - ../dotenv/.env
+    image: ghcr.io/martin-s-angels/whoknows_variations_server:latest
     ports:
       - "8080:8080"
     volumes:
@@ -17,7 +15,7 @@ services:
     build:
       context: ..
       dockerfile: network/dockerfile
-    image: ghcr.io/who-knows/whoknows_variations_nginx:latest
+    image: ghcr.io/martin-s-angels/whoknows_variations_nginx:latest
     ports:
       - "80:80"
     depends_on:
