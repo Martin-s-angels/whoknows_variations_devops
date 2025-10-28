@@ -1,0 +1,86 @@
+name: Build & Push Docker Images
+
+on:
+  push:
+    branches:
+      [release]
+  pull_request:
+    [release]
+workflow_dispatch:
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      #this might work or we just have to do it the way he did it where we have to login 
+      - name: Log in to GHCR
+        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+
+      - name: Build images
+        run: docker compose -f docker-compose.server.yml build
+
+
+      - name: Push images
+        run: docker compose -f docker-compose.server.yml push
+
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    env:
+      # Make sure that the SSH_USER has permission to run docker
+      SSH_USER: ${{ secrets.SSH_USER }}
+      SSH_HOST: ${{ secrets.SSH_HOST }}
+
+
+    steps:
+      - name: Add SSH key to runner
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/ssh_key
+          chmod 600 ~/.ssh/ssh_key
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        
+      - name: Create .env file
+      #input our .env stuff here 
+        run: |
+            echo "GREETING=Hello from Github Action" >> .env
+            echo "DB_USER=${{ secrets.DB_USER }}" >> .env
+            echo "DB_PASS=${{ secrets.DB_PASS }}" >> .env
+
+            
+      - name: Transfer .env file to server
+        run: |
+          scp -i ~/.ssh/ssh_key -o StrictHostKeyChecking=no .env $SSH_USER@$SSH_HOST:.env
+        env:
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+
+      - name: Check Out Repository
+        uses: actions/checkout@v5
+    
+      - name: Transfer Docker compose file to server
+        run: |
+          scp -i ~/.ssh/ssh_key -o StrictHostKeyChecking=no src/docker-compose.server.yml $SSH_USER@$SSH_HOST:docker-compose.yml
+        env:
+            SSH_USER: ${{ secrets.SSH_USER }}
+            SSH_HOST: ${{ secrets.SSH_HOST }}
+      - name: Deploy to server
+        run: |
+          ssh -i ~/.ssh/ssh_key -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST << "EOF"
+            sudo docker compose -f docker-compose.server.yml build
+            sudo docker compose -f docker-compose.server.yml up -d
+          EOF
+        env:
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
