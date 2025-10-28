@@ -1,5 +1,5 @@
 services:
-  whoknows_flask:
+  whoknows_app:
     build:
       context: ..
       dockerfile: network/dockerfile.dev
