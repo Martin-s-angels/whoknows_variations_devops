@@ -9,4 +9,4 @@ RUN bundle install
 
 EXPOSE 8080
 
-CMD ["bundle", "exec", "who_knows.rb", "0.0.0.0", "-p", "8080"]
+CMD ["ruby", "who_knows.rb", "-o", "0.0.0.0", "-p", "8080"]
