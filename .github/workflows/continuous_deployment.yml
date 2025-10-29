@@ -4,9 +4,10 @@ on:
     branches:
       - release
   pull_request:
-    - release
+    branches:
+      - release
   workflow_dispatch:
-  
+
 #needs: continuous_delivery.
 # ssh ind i vm
 

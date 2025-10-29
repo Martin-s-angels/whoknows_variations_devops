@@ -1,13 +1,15 @@
 name: Build & Push Docker Images
 
+
 on:
   push:
     branches:
       - release
   pull_request:
-    - release
+    branches:
+      - release
   workflow_dispatch:
-
+  
 
   deploy:
     needs: build-and-push
