@@ -3,14 +3,15 @@ name: Build & Push Docker Images
 on:
   push:
     branches:
-      [release]
+      - release
   pull_request:
-    [release]
-workflow_dispatch:
+    - release
+  workflow_dispatch:
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+
     steps:
 
       - name: Checkout repository
@@ -57,7 +58,6 @@ jobs:
             echo "GREETING=Hello from Github Action" >> .env
             echo "WEATHER_API_KEY==${{ secrets.WEATHER_API_KEY}}" >> .env
 
-            
       - name: Transfer .env file to server
         run: |
           scp -i ~/.ssh/ssh_key -o StrictHostKeyChecking=no .env $SSH_USER@$SSH_HOST:.env
