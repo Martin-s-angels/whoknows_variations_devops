@@ -3,9 +3,9 @@ name: Build & Push Docker Images
 on:
   push:
     branches:
-      release
+      - release
   pull_request:
-    release
+    - release
   workflow_dispatch:
 
 jobs:
