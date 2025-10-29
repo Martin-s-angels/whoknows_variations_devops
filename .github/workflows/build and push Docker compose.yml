@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - release
+      - 31-deploymentpipeline
   pull_request:
     - release
   workflow_dispatch:
