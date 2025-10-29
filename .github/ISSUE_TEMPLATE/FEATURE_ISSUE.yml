@@ -1,0 +1,24 @@
+name: Feature Request
+description: Suggest an idea or enhancement for this project.
+title: "[FEAT]: "
+labels: ["enhancement", "feature"]
+body:
+  - type: textarea
+    id: desired-solution
+    attributes:
+      label: Describe the solution you'd like
+      description: "A clear description of what you want to happen."
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: "How will we know this feature is complete? Please list the acceptance criteria."
+      placeholder: "As a user, I can..."
+      value: |
+        - [ ] 
+        - [ ] 
+        - [ ] 
+    validations:
+      required: true
