@@ -1,19 +1,19 @@
 services:
-  whoknows_flask:
-    image: ghcr.io/who-knows/whoknows_variations_server:latest
+  whoknows_app:
+    image: ghcr.io/martin-s-angels/whoknows_variations_server:latest
     env_file:
-      - backend/.env
+      - ../dotenv/.env
     ports:
       - "8080:8080"
     networks:
       - my_network
 
   whoknows_nginx:
-    image: ghcr.io/who-knows/whoknows_variations_nginx:latest
+    image: ghcr.io/martin-s-angels/whoknows_variations_nginx:latest
     ports:
       - "80:80"
     depends_on:
-      - whoknows_flask
+      - whoknows_app
     networks:
       - my_network
 
