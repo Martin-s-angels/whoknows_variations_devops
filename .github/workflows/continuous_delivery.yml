@@ -28,10 +28,10 @@ jobs:
 
       # build and push images
       - name: Build images
-        run: docker compose -f /network/docker-compose.server.yml build
+        run: docker compose -f ./network/docker-compose.server.yml build
 
       - name: Push images
-        run: docker compose -f /network/docker-compose.server.yml push
+        run: docker compose -f ./network/docker-compose.server.yml push
 
 
 
