@@ -1,9 +1,10 @@
+name: continuous_delivery
 
 on:
   push:
     branches:
       - release
-      - 31-deploymentpipeline
+      - 31-deploymentpipeline #remove
   pull_request:
     branches:
       - release
