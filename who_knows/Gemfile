@@ -17,3 +17,5 @@ gem 'rubocop'
 
 gem 'httparty'
 
+
+gem "rackup", "~> 2.2"
