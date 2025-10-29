@@ -19,7 +19,7 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - whoknows_flask
+      - whoknows_app
     networks:
       - my_network
 

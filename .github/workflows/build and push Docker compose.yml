@@ -55,8 +55,7 @@ jobs:
       #input our .env stuff here 
         run: |
             echo "GREETING=Hello from Github Action" >> .env
-            echo "DB_USER=${{ secrets.DB_USER }}" >> .env
-            echo "DB_PASS=${{ secrets.DB_PASS }}" >> .env
+            echo "WEATHER_API_KEY==${{ secrets.WEATHER_API_KEY}}" >> .env
 
             
       - name: Transfer .env file to server
