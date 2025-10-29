@@ -1,8 +1,6 @@
 services:
   whoknows_flask:
     image: ghcr.io/who-knows/whoknows_variations_server:latest
-    env_file:
-      - backend/.env
     ports:
       - "8080:8080"
     networks:
