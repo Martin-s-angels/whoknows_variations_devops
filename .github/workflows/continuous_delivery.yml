@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - release
+      - 31-deploymentpipeline
   pull_request:
     branches:
       - release
