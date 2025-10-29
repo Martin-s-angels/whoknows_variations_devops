@@ -1,4 +1,13 @@
 
+on:
+  push:
+    branches:
+      - release
+  pull_request:
+    - release
+  workflow_dispatch:
+  
+#needs: continuous_delivery.
 # ssh ind i vm
 
 # SCP docker-compose.server.yml

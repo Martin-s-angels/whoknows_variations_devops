@@ -8,31 +8,6 @@ on:
     - release
   workflow_dispatch:
 
-jobs:
-  build-and-push:
-    runs-on: ubuntu-latest
-
-    steps:
-
-      - name: Checkout repository
-        uses: actions/checkout@v5
-
-      #this might work or we just have to do it the way he did it where we have to login 
-      - name: Log in to GHCR
-        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-
-      - name: Build images
-        run: docker compose -f docker-compose.server.yml build
-
-
-      - name: Push images
-        run: docker compose -f docker-compose.server.yml push
-
 
   deploy:
     needs: build-and-push
