@@ -1,0 +1,8 @@
+
+# ssh ind i vm
+
+# SCP docker-compose.server.yml
+
+# docker-compose
+  # pull
+  # up
