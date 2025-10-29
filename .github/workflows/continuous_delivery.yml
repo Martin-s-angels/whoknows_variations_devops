@@ -4,7 +4,8 @@ on:
     branches:
       - release
   pull_request:
-    - release
+    branches:
+      - release
   workflow_dispatch:
 
 jobs:
