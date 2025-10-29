@@ -1,0 +1,28 @@
+services:
+  whoknows_app:
+    build:
+      context: ..
+      dockerfile: network/dockerfile.dev
+    image: ghcr.io/martin-s-angels/whoknows_variations_server:latest
+    ports:
+      - "8080:8080"
+    volumes:
+      - ..:/who_knows  
+    networks:
+      - my_network
+
+  whoknows_nginx:
+    build:
+      context: ..
+      dockerfile: network/dockerfile
+    image: ghcr.io/martin-s-angels/whoknows_variations_nginx:latest
+    ports:
+      - "80:80"
+    depends_on:
+      - whoknows_app
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    driver: bridge
