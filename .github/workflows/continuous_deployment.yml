@@ -8,6 +8,9 @@ on:
       - continuous_delivery
     types:
       - completed
+    branches:
+      - release
+      - 31-deploymentpipeline
   workflow_dispatch:
 
 
