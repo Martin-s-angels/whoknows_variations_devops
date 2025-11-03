@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - release
+      - 31-deploymentpipeline
   pull_request:
     branches:
       - release
@@ -16,7 +17,7 @@ jobs:
     permissions:
       contents: read
       packages: write
-      
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
