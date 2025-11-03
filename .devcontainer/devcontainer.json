@@ -9,16 +9,16 @@
 		"ghcr.io/warrenbuckley/codespace-features/sqlite:1": {},
 		"ghcr.io/nikobockerman/devcontainer-features/fish-persistent-data:2": {},
 		"ghcr.io/devcontainers-extra/features/fish-apt-get:1": {}
-	}
+	},
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
+	"forwardPorts": [8080],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "ruby --version",
+	"postCreateCommand": "cd who_knows && bundle install"
 
 	// Configure tool-specific properties.
 	// "customizations": {},
