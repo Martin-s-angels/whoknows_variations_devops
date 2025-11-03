@@ -29,10 +29,10 @@ jobs:
 
       # build and push images
       - name: Build images
-        run: docker compose -f who_knows/network/docker-compose.server.yml build
+        run: docker compose -f who_knows/network/docker-compose.dev.yml build # should this not be our .dev compose 
 
       - name: Push images
-        run: docker compose -f who_knows/network/docker-compose.server.yml push
+        run: docker compose -f who_knows/network/docker-compose.dev.yml push # same here 
 
 
 
