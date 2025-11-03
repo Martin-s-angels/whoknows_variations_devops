@@ -54,7 +54,7 @@ jobs:
 
       - name: Transfer .env file to server
         run: |
-          scp -i ~/.ssh/ssh_key -o StrictHostKeyChecking=no .env $SSH_USER@$SSH_HOST:.env
+          scp -i ~/.ssh/ssh_key -o StrictHostKeyChecking=no env/.env: $SSH_USER@$SSH_HOST:.env
         env:
           SSH_USER: ${{ secrets.SSH_USER }}
           SSH_HOST: ${{ secrets.SSH_HOST }}
