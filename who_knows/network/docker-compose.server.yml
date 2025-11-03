@@ -1,6 +1,6 @@
 services:
   whoknows_flask:
-    image: ghcr.io/who-knows/whoknows_variations_server:latest
+    image: ghcr.io/martin-s-angels/whoknows_variations_server:latest
     ports:
       - "8080:8080"
     networks:
@@ -9,7 +9,7 @@ services:
     #- /home/adminuser/.env:/who_knows/.dotenv:ro #added volume so our docker use the .env that gets uploaded to the server from the workflow. 
 
   whoknows_nginx:
-    image: ghcr.io/who-knows/whoknows_variations_nginx:latest
+    image: ghcr.io/martin-s-angels/whoknows_variations_nginx:latest
     ports:
       - "80:80"
     depends_on:
