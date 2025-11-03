@@ -75,8 +75,8 @@ jobs:
         run: |
           ssh -i ~/.ssh/ssh_key -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST << "EOF"
             echo ${{ secrets.CR_PAT }} | docker login ghcr.io -u ${{ secrets.DOCKER_GITHUB_USERNAME }} --password-stdin
-            docker compose -f docker-compose.server.yml pull
-            docker compose -f docker-compose.server.yml up -d
+            sudo docker compose -f docker-compose.server.yml pull
+            sudo docker compose -f docker-compose.server.yml up -d
           EOF
         env:
           SSH_USER: ${{ secrets.SSH_USER }}
