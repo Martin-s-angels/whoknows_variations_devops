@@ -20,6 +20,8 @@ jobs:
         run:  cd who_knows && bundle install 
 
       - name: use Linter
+        run:  rubocop -a
+      - name: use check if errors from linter
         run:  rubocop 
 
 
