@@ -20,12 +20,8 @@ jobs:
 
       # login on GH. with CR_PAT
       # this might work or we just have to do it the way he did it where we have to login 
-      - name: Log in to GHCR
-        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1 # has pinning
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }} #generate token (if gh actor has write perms)
+      - name: Log in to GitHub Container Registry
+        run:  echo ${{ secrets.CR_PAT }} | docker login ghcr.io -u ${{ secrets.DOCKER_GITHUB_USERNAME }} --password-stdin
 
       # build and push images
       - name: Build images
