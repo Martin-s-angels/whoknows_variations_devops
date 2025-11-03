@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - release
+      - 31-deploymentpipeline
   pull_request:
     branches:
       - release
@@ -28,10 +29,10 @@ jobs:
 
       # build and push images
       - name: Build images
-        run: docker compose -f who_knows/network/docker-compose.server.yml build # should this not be our .dev compose 
+        run: docker compose -f who_knows/network/docker-compose.prod.yml build # should this not be our .dev compose 
 
       - name: Push images
-        run: docker compose -f who_knows/network/docker-compose.server.yml push # same here 
+        run: docker compose -f who_knows/network/docker-compose.prod.yml push # same here 
 
 
 

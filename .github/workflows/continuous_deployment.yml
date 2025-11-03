@@ -10,7 +10,6 @@ on:
   pull_request:
     branches:
       - release
-  
   workflow_run:
     workflows: 
       - continuous_delivery
