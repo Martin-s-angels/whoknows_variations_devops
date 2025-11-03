@@ -3,19 +3,11 @@ name: continuous_deployment
 #setup secrets.
 
 on:
-  push:
-    branches:
-      - release
-      - 31-deploymentpipeline
-  pull_request:
-    branches:
-      - release
   workflow_run:
-    workflows: 
+    workflows:
       - continuous_delivery
     types:
       - completed
-
   workflow_dispatch:
 
 
