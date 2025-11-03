@@ -43,7 +43,7 @@ jobs:
         run: |
           mkdir -p ~/.ssh/
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/ssh_key
-          chmod 400 ~/.ssh/ssh_key
+          chmod 600 ~/.ssh/ssh_key
         
       # .env file:
       - name: Create .env file
@@ -74,8 +74,8 @@ jobs:
       - name: Deploy to server
         run: |
           ssh -i ~/.ssh/ssh_key -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST << "EOF"
-            sudo docker compose -f docker-compose.server.yml pull
-            sudo docker compose -f docker-compose.server.yml up -d
+            docker compose -f docker-compose.server.yml pull
+            docker compose -f docker-compose.server.yml up -d
           EOF
         env:
           SSH_USER: ${{ secrets.SSH_USER }}
