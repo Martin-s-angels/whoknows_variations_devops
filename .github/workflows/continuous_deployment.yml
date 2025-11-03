@@ -74,7 +74,8 @@ jobs:
       - name: Deploy to server
         run: |
           ssh -i ~/.ssh/ssh_key -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST << "EOF"
-          export COMPOSE_DISABLE_ENV_FILE=1
+            export COMPOSE_DISABLE_ENV_FILE=1
+            
             docker compose -f docker-compose.server.yml pull
             docker compose -f docker-compose.server.yml up -d
           EOF
