@@ -28,7 +28,7 @@ on:
   # pull
   # up
 
-
+jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
