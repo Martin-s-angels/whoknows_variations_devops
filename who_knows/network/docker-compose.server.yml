@@ -6,7 +6,7 @@ services:
     networks:
       - my_network
     volumes:
-    - /home/adminuser/env/.env:/who_knows/.dotenv:ro #added volume so our docker use the .env that gets uploaded to the server from the workflow. 
+    - /home/adminuser/env/.env:/who_knows/.dotenv/.env:ro #added volume so our docker use the .env that gets uploaded to the server from the workflow. 
 
   whoknows_nginx:
     image: ghcr.io/martin-s-angels/whoknows_variations_nginx:latest
