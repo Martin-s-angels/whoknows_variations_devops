@@ -65,7 +65,7 @@ jobs:
     
       - name: Transfer Docker compose file to server
         run: |
-          scp -i ~/.ssh/ssh_key -o StrictHostKeyChecking=no who_knows/network/docker-compose.server.yml $SSH_USER@$SSH_HOST:docker-compose.yml
+          scp -i ~/.ssh/ssh_key -o StrictHostKeyChecking=no who_knows/network/docker-compose.server.yml $SSH_USER@$SSH_HOST:docker-compose.server.yml
         env: 
             SSH_USER: ${{ secrets.SSH_USER }}
             SSH_HOST: ${{ secrets.SSH_HOST }}
