@@ -1,5 +1,6 @@
 require 'erb'
 require 'sinatra'
+require 'json'
 
 require __dir__ + '/../model/users.rb'
 
@@ -47,6 +48,8 @@ post '/api/register' do
 end
 
 post '/api/login' do
+  
+
 
 =begin
         """Logs the user in."""
@@ -61,8 +64,13 @@ post '/api/login' do
         session['user_id'] = user['id']
         return redirect(url_for('search'))
     return render_template('login.html', error=error)
+
+
+    Sinatra::Request:0x0000020d971f7538
 =end
 
+  username = params['username']
+  password = params['password']
   
   #get user from db.
   #user = Users.get_user()
