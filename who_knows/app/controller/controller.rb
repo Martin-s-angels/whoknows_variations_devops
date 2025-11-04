@@ -1,6 +1,7 @@
 require 'erb'
 require 'sinatra'
 
+require __dir__ + '/../model/users.rb'
 
 set :port, 8080
 
@@ -25,6 +26,9 @@ end
 
 get '/login' do
   #serve login page
+
+  user1 = Users.new(1,"hej", "hej", "hej")
+
   erb :login
 
 end
