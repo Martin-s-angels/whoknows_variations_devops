@@ -6,18 +6,18 @@
 
   <div class="navigation">
     <nav>
-      <!--
-      <h1><a id="nav-logo" href="{{ url_for('search') }}">¿Who Knows?</a></h1>
-      {% if g.user %}
-      <a id="nav-logout" href="{{ url_for('logout') }}">Log out [{{ g.user.username }}]</a>
-      {% else %}
-      <a id="nav-login" href="{{ url_for('login') }}">Log in</a>
-      <a id="nav-register" href="{{ url_for('register') }}">Register</a>
-      {% endif %} --> <!-- legacy-->
+
+      <h1><a id="nav-logo" href='/api/search'>¿Who Knows?</a></h1>
+
+      <% if (1+1==3) %>
+        <a id="nav-logout" href='/api/logout'>Log out <% "test" %> </a>
+      <% else %>
+        <a id="nav-login" href='/login'>Log in </a>
+        <a id="nav-register" href='/register'>Register</a>
+      <% end %>
 
       nav
     </nav>
-
   </div>
 
   <!-- flashes ? what are flashes?? -->

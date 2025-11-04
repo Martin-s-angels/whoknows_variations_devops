@@ -27,7 +27,7 @@ end
 get '/login' do
   #serve login page
 
-  user1 = Users.new(1,"hej", "hej", "hej")
+  #user1 = Users.new(1,"hej", "hej", "hej")#remove
 
   erb :login
 
@@ -47,7 +47,33 @@ post '/api/register' do
 end
 
 post '/api/login' do
+
+=begin
+        """Logs the user in."""
+    error = None
+    user = query_db("SELECT * FROM users WHERE username = '%s'" % request.form['username'], one=True)
+    if user is None:
+        error = 'Invalid username'
+    elif not verify_password(user['password'], request.form['password']):
+        error = 'Invalid password'
+    else:
+        flash('You were logged in')
+        session['user_id'] = user['id']
+        return redirect(url_for('search'))
+    return render_template('login.html', error=error)
+=end
+
+  
+  #get user from db.
+  user = Users.get_user()
+  
+  #if user is nil
+  #if password invalid
+  #else: login. Set user in session.
+
   #login
+  
+  redirect "/", 303
 end
 
 get '/api/logout' do
