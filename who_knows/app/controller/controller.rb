@@ -29,7 +29,7 @@ get '/login' do
 
   #user1 = Users.new(1,"hej", "hej", "hej")#remove
 
-  erb :login
+  erb :login, locals: {error: nil}
 
 end
 
@@ -65,14 +65,14 @@ post '/api/login' do
 
   
   #get user from db.
-  user = Users.get_user()
+  #user = Users.get_user()
   
   #if user is nil
   #if password invalid
   #else: login. Set user in session.
 
   #login
-  
+
   redirect "/", 303
 end
 
