@@ -1,5 +1,6 @@
 require 'erb'
 require 'sinatra'
+require_relative '../model/search.rb'
 
 
 
@@ -18,7 +19,7 @@ get '/' do
   #query #remove. Test test.
 
   # serve root page
-  result = HTTParty.get(base_url + "/api/search")
+  result = HTTParty.get(base_url + "/api/search", query: { q: query })
 
   seach_results =JSON.parse(result.body)
   
@@ -39,7 +40,13 @@ end
 
 #API'S
 get '/api/search' do
+
+  query = params['q'] # request parameter
+  result = seach(query, language)
+
   #search
+  
+  
 end
 
 get '/api/weather' do
