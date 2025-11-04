@@ -10,8 +10,11 @@ class Users
 
         puts ("initialize user") #remove
     end
+end
 
-    def get_user(name)
+class UserRepository
+    def self.get_user(username)
+=begin
         #db query
         query = "SELECT * FROM users WHERE username = "
         row = db.get_first_row(query)
@@ -20,8 +23,7 @@ class Users
         else
             [nil, nil, nil, nil]
         end
+=end
+        puts("get_user")
     end
-
-
 end
-

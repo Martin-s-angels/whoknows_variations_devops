@@ -73,8 +73,9 @@ post '/api/login' do
   password = params['password']
   
   #get user from db.
-  #user = Users.get_user()
-  
+  user = Users.new(1, "test", "test", "test")
+  user = UserRepository.get_user(username)
+
   #if user is nil
   #if password invalid
   #else: login. Set user in session.
