@@ -4,27 +4,28 @@ require_relative '../model/search.rb'
 
 
 
-Dotenv.load('../who_knows/dotenv/.env') #load .env from path
+Dotenv.load('../who_knows/.dotenv/.env') #load .env from path
 base_url = ENV["BASE_URL"]
 set :port, 8080
-
 #SERVE HTML PAGES:
 
 
 get '/' do
   query = params['q'] # request parameter
-  
 
-  #puts "q=" + query #print variable in console. remove later.
-  #query #remove. Test test.
+  if query && !query.empty?
+    puts(base_url)
+    puts "baseURL = #{ENV['BASE_URL']}"
 
-  # serve root page
-  result = HTTParty.get(base_url + "/api/search", query: { q: query })
+    result = HTTParty.get(base_url + "/api/search", query: { q: query })
+    search_results = JSON.parse(result.body.read)
 
-  seach_results =JSON.parse(result.body)
-  
-  erb :search, locals: {query: query, search_results: seach_results}
+    erb :search, locals: { query: query, search_results: search_results }
+  else
+    erb :search, locals: { query: nil, search_results: [] }
+  end
 end
+
 
 get '/register' do
   #serve register page
@@ -40,13 +41,9 @@ end
 
 #API'S
 get '/api/search' do
-
   query = params['q'] # request parameter
-  result = seach(query, language)
-
+  seach(query)
   #search
-  
-  
 end
 
 get '/api/weather' do
