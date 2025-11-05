@@ -29,9 +29,6 @@ end
 
 get '/login' do
   #serve login page
-
-  #user1 = Users.new(1,"hej", "hej", "hej")#remove
-
   erb :login, locals: {error: nil}
 
 end
