@@ -1,4 +1,5 @@
-    Dotenv.load('../dotenv/.env') #load .env from path
+#require sqlite3
+Dotenv.load(__dir__ + '../dotenv/.env') #load .env from path
 
 
 class Users
@@ -14,7 +15,6 @@ class Users
     end
 end
 
-class UserRepository
     
 
 =begin #remove or fix later.
@@ -27,21 +27,21 @@ class UserRepository
     end
 =end
 
-    def self.get_user(username)
-        db = SQLite3::Database.new(__dir__ + '../../db/whoknows.db')
+def get_user(username)
 
-        puts("get_user")
+    puts("get_user")
+    db = SQLite3::Database.new(__dir__ + '../../db/whoknows.db')
 
-        #db query
-        query = "SELECT * FROM users WHERE username = " + username
-        row = db.get_first_row(query)
+    #db query
+    query = "SELECT * FROM users WHERE username = " + username
+    row = db.get_first_row(query)
 
-        if row
-            id, username, email, password = row [id, username, email, password]
-            puts (row)
+    if row
+        #id, username, email, password = row [id, username, email, password]
+        puts ("row: " + row)
 
-        else
-            [nil, nil, nil, nil]
-        end
+    else
+        #[nil, nil, nil, nil]
+        puts ("no row")
     end
 end
