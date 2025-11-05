@@ -1,6 +1,8 @@
 require 'erb'
 require 'sinatra'
 require 'json'
+require 'sqlite3'
+
 
 require __dir__ + '/../model/users.rb'
 
@@ -73,8 +75,8 @@ post '/api/login' do
   password = params['password']
   
   #get user from db.
-  user = Users.new(1, "test", "test", "test")
-  #user = UserRepository.get_user(username)
+  #user = Users.new(1, "test", "test", "test")
+  user = get_user(username)
 
   #if user is nil
   #if password invalid
