@@ -7,7 +7,7 @@
   <% if search_results.any? %>
     <% search_results.each do |result| %>
       <div>
-        <h2><a class="search-result-title" href="<%= result['url'] %>"><%= result['title'] %></a></h2>
+         <h2><a class="search-result-title" href= <%= result['url'] %>><%= result['title'] %></a></h2>
         <p class="search-result-description"><%= result['description'] %></p>
       </div>
     <% end %>

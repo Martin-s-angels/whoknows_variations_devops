@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS pages (
 
 
 INSERT INTO pages (title, url, language, last_updated, content) VALUES
-  ('The Life of Fish', '/fish', 'en', CURRENT_TIMESTAMP, 'Fish live in the water and breathe through gills. They come in many colors and sizes.'),
+  ('The Life of Fish', 'https://en.wikipedia.org/wiki/Fish', 'en', CURRENT_TIMESTAMP, 'Fish live in the water and breathe through gills. They come in many colors and sizes.');
 
 
 
