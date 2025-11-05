@@ -74,7 +74,7 @@ post '/api/login' do
   
   #get user from db.
   user = Users.new(1, "test", "test", "test")
-  user = UserRepository.get_user(username)
+  #user = UserRepository.get_user(username)
 
   #if user is nil
   #if password invalid

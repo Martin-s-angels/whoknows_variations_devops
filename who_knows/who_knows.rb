@@ -2,7 +2,6 @@ require 'sinatra'
 require 'json'
 require 'erb'
 require 'dotenv/load'
-require 'sqlite3'
 
 require_relative 'app/controller/controller.rb'
 require_relative 'app/model/weather.rb'

@@ -1,4 +1,4 @@
-#require sqlite3
+
 Dotenv.load(__dir__ + '../dotenv/.env') #load .env from path
 
 
