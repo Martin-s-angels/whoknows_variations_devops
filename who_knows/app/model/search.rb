@@ -2,7 +2,7 @@ require 'sqlite3'
 require 'dotenv/load'
 
 
-def seach(query)
+def search(query)
 puts "Running search for: #{query}"
   #Page = Struct.new(:id, :title, :language, :content) #??
 

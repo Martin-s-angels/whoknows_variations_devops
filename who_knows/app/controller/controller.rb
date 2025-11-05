@@ -44,7 +44,7 @@ end
 #API'S
 get '/api/search' do
   query = params['q'] # request parameter
-  result = seach(query)
+  result = search(query)
   puts "output search function was: #{result}"
   result.to_json
   
