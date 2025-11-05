@@ -1,5 +1,5 @@
 
-Dotenv.load(__dir__ + '../dotenv/.env') #load .env from path
+Dotenv.load(__dir__ + '/../dotenv/.env') #load .env from path
 
 
 class Users
@@ -30,7 +30,9 @@ end
 def get_user(username)
 
     puts("get_user")
-    db = SQLite3::Database.new(__dir__ + '../../db/whoknows.db')
+    puts("db path: " + __dir__ + '/../../db/whoknows.db')
+
+    db = SQLite3::Database.new(__dir__ + '/../../db/whoknows.db')
 
     #db query
     query = "SELECT * FROM users WHERE username = " + username
