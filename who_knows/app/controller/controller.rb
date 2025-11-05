@@ -76,7 +76,8 @@ post '/api/login' do
   
   #get user from db.
   #user = Users.new(1, "test", "test", "test")
-  user = get_user(username)
+  #user = get_user(username)
+  user = get_user("admin")
 
   #if user is nil
   #if password invalid

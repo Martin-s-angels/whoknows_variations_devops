@@ -30,17 +30,17 @@ end
 def get_user(username)
 
     puts("get_user")
-    puts("db path: " + __dir__ + '/../../db/whoknows.db')
+    #puts("db path: " + __dir__ + '/../../db/whoknows.db')
 
     db = SQLite3::Database.new(__dir__ + '/../../db/whoknows.db') 
 
     #db query
-    query = "SELECT * FROM users WHERE username = " + username
+    query = "SELECT * FROM users WHERE username = '" + username + "'"
     begin
         row = db.get_first_row(query)
-        puts ("row: " + row)
-    rescue
-        puts( "user not found")
+        puts ("row: " + row[1])
+    rescue Exception => e
+        puts( "error: " + e.message)
         return "user not found"
     end
 
