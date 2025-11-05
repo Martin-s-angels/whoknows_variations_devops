@@ -10,48 +10,35 @@ class Users
         @name = name
         @email = email
         @password = password
-
-        puts ("initialize user") #remove
     end
 end
 
     
 
 =begin #remove or fix later.
-    def self.connect_db()
+    def open_db_connection()
         db = SQLite3::Database.new(__dir__ + '../../db/whoknows.db')
         puts("connect to db")
     end
 
-    def self.close_db()
+    def close_db_connection()
     end
 =end
 
 def get_user(username)
-
-    puts("get_user")
-    #puts("db path: " + __dir__ + '/../../db/whoknows.db')
-
+    #connect to db
     db = SQLite3::Database.new(__dir__ + '/../../db/whoknows.db') 
+    
+    #query string
+    query = "SELECT * FROM users WHERE username = '" + username + "'" 
 
-    #db query
-    query = "SELECT * FROM users WHERE username = '" + username + "'"
+    #execute query
     begin
-        row = db.get_first_row(query)
-        puts ("row: " + row[1])
-    rescue Exception => e
-        puts( "error: " + e.message)
-        return "user not found"
+        result = db.get_first_row(query) 
+        #puts ("row: " + row[1])
+        return Users.new(result[0], result[1], result[2], result[3]) #construct user from result
+    
+    rescue SQLite3::exception #may throw sqlite3 exception, if username not found.
+        return nil
     end
-
-=begin
-    if row
-        #id, username, email, password = row [id, username, email, password]
-        
-
-    else
-        #[nil, nil, nil, nil]
-        puts ("no row")
-    end
-=end
 end

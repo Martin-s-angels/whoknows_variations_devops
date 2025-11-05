@@ -50,40 +50,23 @@ post '/api/register' do
 end
 
 post '/api/login' do
-  
-
-
-=begin
-        """Logs the user in."""
-    error = None
-    user = query_db("SELECT * FROM users WHERE username = '%s'" % request.form['username'], one=True)
-    if user is None:
-        error = 'Invalid username'
-    elif not verify_password(user['password'], request.form['password']):
-        error = 'Invalid password'
-    else:
-        flash('You were logged in')
-        session['user_id'] = user['id']
-        return redirect(url_for('search'))
-    return render_template('login.html', error=error)
-
-
-    Sinatra::Request:0x0000020d971f7538
-=end
-
   username = params['username']
   password = params['password']
   
+  error = nil
+
   #get user from db.
-  #user = Users.new(1, "test", "test", "test")
-  #user = get_user(username)
-  user = get_user("admin")
+  user = get_user(username)
 
   #if user is nil
-  #if password invalid
-  #else: login. Set user in session.
-
-  #login
+  if (!user)
+    error = 'Invalid username'
+  elsif (false) #password invalid
+    error = 'Invalid password'
+  else
+    #flash: "succesfully logged in as (username)"
+    #login. Set user in session.
+  end
 
   redirect "/", 303
 end
