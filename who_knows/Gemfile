@@ -3,19 +3,21 @@ source 'https://rubygems.org/'
 gem 'sinatra'
 gem 'puma'
 gem 'rerun'
+gem "rackup", "~> 2.2"
+
+gem 'httparty'
+gem 'erb'
 
 gem 'sqlite3'
 
 gem 'dotenv'
-
-gem 'erb'
 
 gem 'test-unit'
 gem 'rack-test'
 
 gem 'rubocop'
 
-gem 'httparty'
 
 
-gem "rackup", "~> 2.2"
+
+
