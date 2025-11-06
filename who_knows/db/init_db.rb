@@ -4,8 +4,8 @@
 
 require 'sqlite3'
 
-
 db = SQLite3::Database.new 'whoknows.db' #instantiate db
+
 
 schema_sql = File.read(File.join(__dir__, 'schema.sql'))#get schema as File, so we may read it.
 

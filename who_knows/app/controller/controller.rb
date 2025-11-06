@@ -1,6 +1,10 @@
 require 'erb'
 require 'sinatra'
+require 'json'
+require 'sqlite3'
 
+
+require __dir__ + '/../model/users.rb'
 
 set :port, 8080
 
@@ -25,7 +29,10 @@ end
 
 get '/login' do
   #serve login page
-  erb :login
+
+  #user1 = Users.new(1,"hej", "hej", "hej")#remove
+
+  erb :login, locals: {error: nil}
 
 end
 
@@ -43,7 +50,25 @@ post '/api/register' do
 end
 
 post '/api/login' do
-  #login
+  username = params['username']
+  password = params['password']
+  
+  error = nil
+
+  #get user from db.
+  user = get_user(username)
+
+  #if user is nil
+  if (!user)
+    error = 'Invalid username'
+  elsif (false) #password invalid
+    error = 'Invalid password'
+  else
+    #flash: "succesfully logged in as (username)"
+    #login. Set user in session.
+  end
+
+  redirect "/", 303
 end
 
 get '/api/logout' do
