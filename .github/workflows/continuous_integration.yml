@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v5
 
       - name: bundle install 
-        run:  cd who_knows && bundle install 
+#        run:  cd who_knows && bundle install 
 
       - name: use Linter
         run:  rubocop -a
