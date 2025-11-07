@@ -1,0 +1,34 @@
+name: continuous_delivery
+
+on:
+  push:
+    branches:
+      - release
+  pull_request:
+    branches:
+      - release
+  workflow_dispatch:
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest #build vm
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      # login on GH. with CR_PAT
+      # this might work or we just have to do it the way he did it where we have to login 
+      - name: Log in to GitHub Container Registry
+        run:  echo ${{ secrets.CR_PAT }} | docker login ghcr.io -u ${{ secrets.DOCKER_GITHUB_USERNAME }} --password-stdin
+
+      # build and push images
+      - name: Build images
+        run: docker compose -f who_knows/.devops/docker-compose.prod.yml build # should this not be our .dev compose 
+
+      - name: Push images
+        run: docker compose -f who_knows/.devops/docker-compose.prod.yml push # same here 
+
+
+
+

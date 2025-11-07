@@ -1,25 +1,19 @@
 services:
-  whoknows_app:
-    build:
-      context: ..
-      dockerfile: network/dockerfile.dev
+  whoknows_flask:
     image: ghcr.io/martin-s-angels/whoknows_variations_server:latest
     ports:
       - "8080:8080"
-    volumes:
-      - ..:/who_knows  
     networks:
       - my_network
+    volumes:
+    - /home/adminuser/env/.env:/who_knows/.dotenv/.env:ro #added volume so our docker use the .env that gets uploaded to the server from the workflow. 
 
   whoknows_nginx:
-    build:
-      context: ..
-      dockerfile: network/dockerfile
     image: ghcr.io/martin-s-angels/whoknows_variations_nginx:latest
     ports:
       - "80:80"
     depends_on:
-      - whoknows_app
+      - whoknows_flask
     networks:
       - my_network
 
