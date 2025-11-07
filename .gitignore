@@ -171,3 +171,5 @@ cython_debug/
 **/whoknows.db
 *.db
 /legacy
+
+**/schema.sql
