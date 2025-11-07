@@ -38,7 +38,7 @@ def get_user(username)
         #puts ("row: " + row[1])
         return Users.new(result[0], result[1], result[2], result[3]) #construct user from result
     
-    rescue SQLite3::exception #may throw sqlite3 exception, if username not found.
+    rescue #may throw sqlite3 exception, if username not found.
         return nil
     end
 end
