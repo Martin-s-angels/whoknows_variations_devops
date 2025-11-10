@@ -1,0 +1,19 @@
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+    inputs:
+      newRelease:
+        type: boolean
+        description: Add new release?
+
+jobs:
+  release:
+    
+    steps:
+    - name: create new version
+      # run: echo "${{ github.event.inputs.message }} ${{ fromJSON('["", "🥳"]')[github.event.inputs.use-emoji == 'true'] }} ${{ github.event.inputs.name }}"
+    - name: push to release
+
+
