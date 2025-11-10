@@ -10,11 +10,10 @@ base_url = ENV["BASE_URL"]
 set :port, 8080
 #SERVE HTML PAGES:
 
+get '/' do # this is the standard root of our page this is where the anyone who clicks on our link lands. this is also called a route or a endpoint. it is customary to have end points setup in this way with / as the first however some may disagree on the order of endpoints but in this instance it makes sense
+  query = params['q'] # request parameter #martin note: request parameters we intake from the page. argo those parameters that the use inputs into the search when the sreach is made and the http request is then sendt to this controller in the backend which then unpacks the request parameter and puts them into the varriable of query which is just the search the user wishes to make 
 
-get '/' do
-  query = params['q'] # request parameter
-
-  if query && !query.empty?
+  if query && !query.empty? #this is a if statment, or a if block to some. if's are stuckered in such a way that they first i
     puts(base_url)
     puts "baseURL = #{ENV['BASE_URL']}"
 
