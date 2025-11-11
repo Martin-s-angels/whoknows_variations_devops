@@ -11,7 +11,7 @@ puts "Running search for: #{query}"
   pages = []
   db.execute(sql, "%#{query}%") do |row|
   title, url, language, content = row
-      pages << {
+      pages << { #from the quryies file in the db  which i stole this block about how to make searches and redefined it here this does mean it exists twice but i was not sure that was acutally how we wanted it but i found out that the search function in qurries.rb file did not work so therefore i made this block with a subtle but important differance, in the qurries.rb the method uses a sturct which i have no idea how works in ruby and it would not no matter what i did convert to a json. so instead i did this on this current line where i instead define a key value pair pretty much exaclty the way json would be defined and it worked. i think this is actually a ruby object this but i am not certain about this but with this setup it converts without issue. there might be a reason to use sturct still that i am unaware of at this moment in time. 
       title: title,
       url: url,
       language: language,
