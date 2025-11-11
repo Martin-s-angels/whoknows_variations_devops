@@ -2,26 +2,32 @@ on:
   push:
     branches:
       - master
-  workflow_dispatch:
-    inputs:
-      newRelease:
-        type: boolean
-        description: Add new release?
-
-
 
 jobs:
   deploy-to-release:
-    if: > # pull request merged && 
-      github.event.pull_request.merged == true &&  
-      contains(github.event.pull_request.labels.*.name, 'ready-for-release') 
-    steps:
-    - name: create new version
-      # drop down
-      # link til version side
+    if: ${{ github.event.pull_request.merged && contains(github.event.pull_request.labels.*.name, 'ready-for-release') }}
+    runs-on: ubuntu-latest
 
-      # run: echo "${{ github.event.inputs.message }} ${{ fromJSON('["", "🥳"]')[github.event.inputs.use-emoji == 'true'] }} ${{ github.event.inputs.name }}"
-    - name: push to release
+    steps:
+      - name: create new version
+        # drop down
+        # link til version side
+
+        # run: echo "${{ github.event.inputs.message }} ${{ fromJSON('["", "🥳"]')[github.event.inputs.use-emoji == 'true'] }} ${{ github.event.inputs.name }}"
+      - name: login to GitHub
+        run: |
+          echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
+
+      - name: push to release
+        needs: login to GitHub 
+
+        uses: actions/checkout@v5
+        run: git switch release | git pull | git merge -f master 
+
+  
+
+
+
     
 
 
