@@ -8,12 +8,20 @@ on:
         type: boolean
         description: Add new release?
 
+
+
 jobs:
-  release:
-    
+  deploy-to-release:
+    if: > # pull request merged && 
+      github.event.pull_request.merged == true &&  
+      contains(github.event.pull_request.labels.*.name, 'ready-for-release') 
     steps:
     - name: create new version
+      # drop down
+      # link til version side
+
       # run: echo "${{ github.event.inputs.message }} ${{ fromJSON('["", "🥳"]')[github.event.inputs.use-emoji == 'true'] }} ${{ github.event.inputs.name }}"
     - name: push to release
+    
 
 
