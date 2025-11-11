@@ -23,7 +23,7 @@ get '/' do # this is the standard root of our page this is where the anyone who 
 
     erb :search, locals: { query: query, search_results: search_results } #the first return of the codeblock in erb the statement is a return much like rust actually and so if a qury is present and all the elements succeded then it return a erb file serch and intakes the peramiters from all the other code 
   else # a else which comes after the if block indicates what will happen if the condition in the if statment is not true then the following codeblock will be exicuted instead which in my deranged mind makes sense since only 2 things should be able to be true in the instance of the route. either there is a peramiter and the user has just landed on it and there has not made a seach yet and therefore nothing should be seached in the database and it should show nothing. or the user has made a serch and the program should therefore do a seach for the term in our database and return the result so there i chose to use a else block in this instance. 
-    erb :search, locals: { query: nil, search_results: [] } #if the 
+    erb :search, locals: { query: nil, search_results: [] } #this is used to make sure the user when they first land dont get a error since when they first land on the page nothing should be displayed so therefore the function returns a empty query ergo a empty string so nothing is displayed and furthermore a empty list of seach results which then results in nothing begin displayed on the page when first loaded in. this might not be the best way of doing things but it works for now can be refactored later to fit more use cases. 
   end
 end
 

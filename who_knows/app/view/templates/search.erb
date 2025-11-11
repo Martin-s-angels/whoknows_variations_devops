@@ -1,17 +1,17 @@
-<div>
-  <input id="search-input" placeholder="Search..." value="<%= query.to_s %>"/>
-  <button id="search-button" onclick="makeSearchRequest()">Search</button>
+<div> 
+  <input id="search-input" placeholder="Search..." value="<%= query.to_s %>"/> // here i input the query on the seach bar when the site is loaded which then results in the it either being the query that was sent our nothing upon first landing on the page as explained in controller.rb notes line 26. 
+  <button id="search-button" onclick="makeSearchRequest()">Search</button> // not mine 
 </div>
 
-<div id="results">
-  <% if search_results.any? %>
-    <% search_results.each do |result| %>
-      <div>
-         <h2><a class="search-result-title" href= <%= result['url'] %>><%= result['title'] %></a></h2>
+<div id="results"> // here we have div which is called results argo the things it finds in the database via the backend. results is present on the page upon first contact but is empty until the first query is made then it is populated with the contents of the database. 
+  <% if search_results.any? %> // a ruby if statement i have implimented via the comparison operators and the procenttile sign in combination which allows me to write ruby code in these .erb files. This if statement condition check reather results is empty or not and therefore decided reather the results div will be populated or not. this prevents errors with empty elements if nothing is searched or the site is first reached. the erb file gets the search results "object" from the use of locals in the controller which gives it upon loading the file i would imagine. i do not know how erb actually works under the hood for this to be possible, could be some kind of computer magic for all i care.  
+    <% search_results.each do |result| %> // inside the if block now we define that for each element in the search_results list which is a list of json objekts at this point in time it should do something with earch of them. each element is then defined as result so we can acess the elements inside the list. what it should do with them is extract the contents of the list and display in in the html upon for each element is a object that matches the search query in some way. 
+      <div> // here i create a div inside the for each block which will create a div for each element that was present in the json list and therefore there will be as meney divs as there is elements in the list 
+         <h2><a class="search-result-title" href= <%= result['url'] %>><%= result['title'] %></a></h2> // here we define what will be displayed in our divs inside each div there will be a h2 argo a title with a url and a title inside a a tag which will make it display on the frontend. look i dont know how to explain this in a long winded way
         <p class="search-result-description"><%= result['description'] %></p>
       </div>
     <% end %>
-  <% elsif query && !query.empty? %>
+  <% elsif query && !query.empty? %> // this happens in case a qury was sent but no results was present so someone searched for something with no results which means results.any was false but qury was not so there i use a ruby else if here to define that if this is the case then it should just display a message about nothing being found for that given search result 
     <p>No results found for "<%= query %>".</p>
   <% end %>
 </div>
