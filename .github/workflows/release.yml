@@ -15,9 +15,9 @@ jobs:
           echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
 
       - name: push to release
-        needs: login to GitHub 
         uses: actions/checkout@v5
-        run: git switch release-2 | git pull | git merge -f master | git push
+        run: |
+          git switch release-2 | git pull | git merge -f master | git push
 
 
   
