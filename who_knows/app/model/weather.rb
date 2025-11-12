@@ -2,7 +2,7 @@ require 'sinatra'
 require 'httparty'
 require 'dotenv'
 
-Dotenv.load('../who_knows/dotenv/.env') #load .env from path
+Dotenv.load('../who_knows/.dotenv/.env') #load .env from path
 
 def fetch_weather
   api_key = ENV['WEATHER_API_KEY'] #a problem: it refuses to fetch when the api is hidden in .env, but when written raw the data loads ????
