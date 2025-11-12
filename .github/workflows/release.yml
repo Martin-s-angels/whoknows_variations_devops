@@ -17,7 +17,7 @@ jobs:
       - name: push to release
         needs: login to GitHub 
         uses: actions/checkout@v5
-        run: git switch release | git pull | git merge -f master 
+        run: git switch release-2 | git pull | git merge -f master 
 
 
   
