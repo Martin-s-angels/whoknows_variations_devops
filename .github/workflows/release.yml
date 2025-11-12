@@ -1,0 +1,29 @@
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy-to-release:
+    if: ${{ github.event.pull_request.merged && 
+      contains(github.event.pull_request.labels.*.name, 'ready-for-release') }} # release label must be added to PR
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: login to GitHub
+        run: |
+          echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
+
+      - name: push to release
+        needs: login to GitHub 
+        uses: actions/checkout@v5
+        run: git switch release-2 | git pull | git merge -f master | git push
+
+
+  
+
+
+
+    
+
+
