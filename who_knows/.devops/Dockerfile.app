@@ -1,0 +1,12 @@
+# Dockerfile
+
+FROM ruby
+
+WORKDIR /who_knows
+COPY . .
+
+RUN bundle install
+
+EXPOSE 8080
+
+CMD ["ruby", "who_knows.rb", "-o", "0.0.0.0", "-p", "8080"]
