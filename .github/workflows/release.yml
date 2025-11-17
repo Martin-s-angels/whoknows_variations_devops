@@ -8,8 +8,9 @@ jobs:
   deploy-to-release:
     runs-on: ubuntu-latest
 
-    if: ${{ contains(github.event.pull_request.labels.*.name, 'ready-for-release') }} # release label must be added to PR 
-
+    if: ${{ github.event.pull_request.merged && 
+      contains(github.event.pull_request.labels.*.name, 'ready-for-release') }} # release label must be added to PR
+      
     steps:
       - name: checkout code
         uses: actions/checkout@v5 
