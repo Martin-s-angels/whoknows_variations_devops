@@ -30,4 +30,5 @@ jobs:
           git checkout release-2
           git merge origin/master --commit -m "New release"
           git merge origin/"#63-release-workflow"  --commit -m "New release" 
+          git commit -m "New Release"
           git push 
