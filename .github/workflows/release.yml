@@ -24,7 +24,9 @@ jobs:
       - name: push to release      
         run: |
           git pull --all 
-          git push release-2
+          git checkout release-2
+          git pull
+          git push 
 
 
 
