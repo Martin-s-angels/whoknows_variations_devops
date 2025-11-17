@@ -20,8 +20,12 @@ jobs:
           echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
 
       - name: push to release      
-        run: git switch release-2 | git pull | git merge master 
-          | git commit -m "Push to Release (through GH Actions)" | git push
+        run: |
+          git fetch -all 
+          git switch release-2 
+          git merge master 
+          git commit -a -m "Push to Release (through GH Actions)"
+          git push
 
 
   
