@@ -1,8 +1,8 @@
 on:
-  push:
-    #types: [closed]
+  pull_request:
+    types: [closed]
     branches:
-      - "#63-release-workflow-2"
+      - master
 
 jobs:
   deploy-to-release:
@@ -10,32 +10,24 @@ jobs:
 
     permissions:
       contents: write
-#    if: ${{ github.event.pull_request.merged && 
- #     contains(github.event.pull_request.labels.*.name, 'ready-for-release') }} # release label must be added to PR
-      
+    if: ${{ github.event.pull_request.merged && 
+      contains(github.event.pull_request.labels.*.name, 'ready-for-release') }} # release label must be added to PR
+       
     steps:
       - name: checkout code
         uses: actions/checkout@v5 
+        with:
+          fetch-depth: 0
 
       - name: Configure Git user
         run: |
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor }}@users.noreply.github.com"
-          
+
       - name: push to release      
         run: |
-          git fetch --all
-          git checkout release-2
-          git merge origin/master --commit -m "New release"
-          git push
-
-
-
-
-  
-
-
-
-    
-
-
+          git pull --all 
+          git checkout release
+          git merge origin/master
+          git commit -m "New Release"
+          git push 
