@@ -22,9 +22,9 @@ jobs:
       - name: push to release      
         run: |
           git pull --all 
-          git rebase origin/release-2 
-          git commit -a -m "Push to Release (through GH Actions)"
-          git push
+          git commit -a -m "Merge through GH Actions"
+          git push -f origin release-2
+
 
 
   
