@@ -1,6 +1,8 @@
 on:
-  branches:
-    - "#63-release-workflow-2"
+  push:
+    #types: [closed]
+    branches:
+      - "#63-release-workflow-2"
 
 jobs:
   deploy-to-release:
