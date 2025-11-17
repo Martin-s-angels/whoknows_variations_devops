@@ -21,9 +21,8 @@ jobs:
 
       - name: push to release      
         run: |
-          git fetch --all 
-          git switch release-2 
-          git merge master 
+          git pull --all 
+          git rebase release-2 
           git commit -a -m "Push to Release (through GH Actions)"
           git push
 
