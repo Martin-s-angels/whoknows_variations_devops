@@ -44,6 +44,7 @@ jobs:
         run: |
             echo "GREETING=Hello from Github Action" >> .env
             echo "WEATHER_API_KEY=${{ secrets.WEATHER_API_KEY}}" >> .env
+            echo "BASE_URL=${{ secrets.BASE_URL}}" >> .env
 
       - name: Transfer .env file to server
         run: |
