@@ -29,7 +29,6 @@ jobs:
           git fetch --all 
           git checkout release-2
           git merge origin/#63-release-workflow-2 
-          git commit -m "New Release"
           git push 
 
 #why not merge ? awdawdawdadawdawdawdawdasdawdasdawd
