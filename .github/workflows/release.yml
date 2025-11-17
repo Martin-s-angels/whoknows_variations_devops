@@ -26,8 +26,8 @@ jobs:
 
       - name: push to release      
         run: |
-          git pull --all 
+          git fetch --all 
           git checkout release
           git merge origin/master
-          git commit -m "New Release"
           git push 
+
