@@ -15,4 +15,4 @@ Closes: #_issue_number_
 - [ ] Test
 
 
-https://github.com/Martin-s-angels/whoknows_variations_devops/releases/new
+[Go to release] (https://github.com/Martin-s-angels/whoknows_variations_devops/releases/new)
