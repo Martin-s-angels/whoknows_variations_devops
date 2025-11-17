@@ -1,15 +1,16 @@
 on:
-  pull_request:
-    types: [closed]
+  push:
+    #types: [closed]
     branches:
-      - master
+      - "#63-release-workflow"
 
 jobs:
   deploy-to-release:
     runs-on: ubuntu-latest
 
-    if: ${{ github.event.pull_request.merged && 
-      contains(github.event.pull_request.labels.*.name, 'ready-for-release') }} # release label must be added to PR
+
+#    if: ${{ github.event.pull_request.merged && 
+ #     contains(github.event.pull_request.labels.*.name, 'ready-for-release') }} # release label must be added to PR
       
     steps:
       - name: checkout code
@@ -22,7 +23,6 @@ jobs:
       - name: push to release      
         run: |
           git pull --all 
-          git commit -a -m "Merge through GH Actions"
           git push -f origin release-2
 
 
