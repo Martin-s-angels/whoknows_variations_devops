@@ -19,10 +19,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: login to GitHub
-        run: |
-          echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
-
       - name: Configure Git user
         run: |
           git config user.name "${{ github.actor }}"
@@ -33,4 +29,5 @@ jobs:
           git pull --all 
           git checkout release-2
           git merge origin/master --commit -m "New release"
+          git merge origin/"#63-release-workflow"  --commit -m "New release" 
           git push 

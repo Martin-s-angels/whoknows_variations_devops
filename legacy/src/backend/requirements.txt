@@ -1,4 +1,0 @@
-setuptools
-Werkzeug
-Jinja2
-Flask

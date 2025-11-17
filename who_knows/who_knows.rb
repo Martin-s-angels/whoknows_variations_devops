@@ -13,7 +13,7 @@ set :views, "app/view/templates/"
 
 get '/test' do
 
-  
+  puts("Test release workflow. Delete this.")
 
   #test erb (remove later):
   x = 42
