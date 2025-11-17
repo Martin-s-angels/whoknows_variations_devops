@@ -24,7 +24,7 @@ jobs:
       - name: push to release      
         run: |
           git pull --all 
-          git push -f ${{ github.repository }} origin/release-2
+          git push -f release-2
 
 
 
