@@ -23,7 +23,7 @@ jobs:
       - name: push to release      
         run: |
           git pull --all 
-          git push -f origin/release-2
+          git push -f release-2
 
 
 
