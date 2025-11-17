@@ -17,10 +17,11 @@ jobs:
       - name: checkout code
         uses: actions/checkout@v5 
 
-      - name: login to GitHub
+      - name: Configure Git user
         run: |
-          echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
-
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+          
       - name: push to release      
         run: |
           git fetch --all
