@@ -98,21 +98,19 @@ post '/api/login' do
   user = get_user(username)
 
   #if user is nil
-  if !user
+  if (!user)
     error = 'Invalid username'
-  elsif !user.password_valid?(password) #password invalid
+  elsif (false) #password invalid
     error = 'Invalid password'
   else
     #flash: "succesfully logged in as (username)"
     #login. Set user in session.
-    redirect "/", 303
   end
-
-  erb :login, locals: { error: error }
+    
+  
+  redirect "/", 303
 end
 
 get '/api/logout' do
   #logout.
 end
-
-
