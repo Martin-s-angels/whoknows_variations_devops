@@ -4,11 +4,11 @@ CREATE TABLE IF NOT EXISTS users (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   username TEXT NOT NULL UNIQUE,
   email TEXT NOT NULL UNIQUE,
-  password TEXT NOT NULL
+  pw_hash TEXT NOT NULL
 );
 
 -- Create a default user, The password is 'password' (MD5 hashed)
-INSERT INTO users (username, email, password) 
+INSERT INTO users (username, email, pw_hash) 
     VALUES ('admin', 'keamonk1@stud.kea.dk', '5f4dcc3b5aa765d61d8327deb882cf99');
 
 
