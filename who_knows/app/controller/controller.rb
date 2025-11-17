@@ -82,7 +82,7 @@ post '/api/register' do
   else
     add_user(username, email, password)
     # flash 'successfully registered'
-    redirect '/login'
+    redirect '/'
   end
   # If there was an error, re-render the register page with the error message
   erb :register, locals: { error: error }
