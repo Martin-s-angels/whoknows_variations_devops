@@ -1,1 +1,1 @@
-![Release?](https://github.com/Martin-s-angels/whoknows_variations_devops/.github/workflows/release.yml/badge.svg)
+[![.github/workflows/release.yml](https://github.com/Martin-s-angels/whoknows_variations_devops/actions/workflows/release.yml/badge.svg)](https://github.com/Martin-s-angels/whoknows_variations_devops/actions/workflows/release.yml)
