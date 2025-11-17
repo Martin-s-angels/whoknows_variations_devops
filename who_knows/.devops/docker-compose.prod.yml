@@ -3,7 +3,7 @@ services:
     image: ghcr.io/martin-s-angels/whoknows_variations_server:latest
     build:
       context: ..
-      dockerfile: .devops/Dockerfile.dev
+      dockerfile: .devops/Dockerfile.app
     ports:
       - "8080:8080"
     networks:
@@ -13,7 +13,7 @@ services:
     image: ghcr.io/martin-s-angels/whoknows_variations_nginx:latest
     build:
       context: ..
-      dockerfile: .devops/Dockerfile
+      dockerfile: .devops/Dockerfile.nginx
     ports:
       - "80:80"
     depends_on:

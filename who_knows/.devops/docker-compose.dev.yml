@@ -2,7 +2,7 @@ services:
   whoknows_app:
     build:
       context: .
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.app
     image: ghcr.io/martin-s-angels/whoknows_variations_server:latest
     ports:
       - "8080:8080"
@@ -14,7 +14,7 @@ services:
   whoknows_nginx:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.nginx
     image: ghcr.io/martin-s-angels/whoknows_variations_nginx:latest
     ports:
       - "80:80"
