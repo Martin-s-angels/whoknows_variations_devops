@@ -1,23 +1,27 @@
 on:
-  push:
+  pull_request:
+    types: [closed]
     branches:
       - master
 
 jobs:
   deploy-to-release:
-    if: ${{ github.event.pull_request.merged && 
-      contains(github.event.pull_request.labels.*.name, 'ready-for-release') }} # release label must be added to PR
     runs-on: ubuntu-latest
 
+    if: ${{ github.event.pull_request.merged && 
+      contains(github.event.pull_request.labels.*.name, 'ready-for-release') }} # release label must be added to PR
+      
     steps:
+      - name: checkout code
+        uses: actions/checkout@v5 
+
       - name: login to GitHub
         run: |
           echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
 
-      - name: push to release
-        needs: login to GitHub 
-        uses: actions/checkout@v5
-        run: git switch release-2 | git pull | git merge -f master 
+      - name: push to release      
+        run: git switch release-2 | git pull | git merge master 
+          | git commit -m "Push to Release (through GH Actions)" | git push
 
 
   
