@@ -25,7 +25,7 @@ jobs:
         run: |
           git pull --all 
           git checkout release-2
-          git merge master --commit -m "New release"
+          git merge origin/master --commit -m "New release"
           git push 
 
 
