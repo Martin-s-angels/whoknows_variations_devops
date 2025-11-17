@@ -1,8 +1,8 @@
 on:
-  push:
-    #types: [closed]
+  pull_request:
+    types: [closed]
     branches:
-      - "#63-release-workflow"
+      - master
 
 jobs:
   deploy-to-release:
@@ -10,8 +10,8 @@ jobs:
 
     permissions:
       contents: write
-#    if: ${{ github.event.pull_request.merged && 
- #     contains(github.event.pull_request.labels.*.name, 'ready-for-release') }} # release label must be added to PR
+    if: ${{ github.event.pull_request.merged && 
+      contains(github.event.pull_request.labels.*.name, 'ready-for-release') }} # release label must be added to PR
        
     steps:
       - name: checkout code
@@ -28,6 +28,6 @@ jobs:
         run: |
           git pull --all 
           git checkout release-2
-          git merge origin/master --commit -m "New release"
-          git merge origin/"#63-release-workflow"  --commit -m "New release" 
+          git merge origin/master
+          git commit -m "New Release"
           git push 
