@@ -2,7 +2,7 @@ on:
   push:
     #types: [closed]
     branches:
-      - "#63-release-workflow"
+      - "#63-release-workflow-2"
 
 jobs:
   deploy-to-release:
@@ -23,10 +23,11 @@ jobs:
 
       - name: push to release      
         run: |
-          git pull --all 
+          git fetch --all
           git checkout release-2
           git merge origin/master --commit -m "New release"
-          git push 
+          git push
+
 
 
 
