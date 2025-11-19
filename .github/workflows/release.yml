@@ -1,0 +1,33 @@
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - master
+
+jobs:
+  deploy-to-release:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+    if: ${{ github.event.pull_request.merged && 
+      contains(github.event.pull_request.labels.*.name, 'ready-for-release') }} # release label must be added to PR
+       
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v5 
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git user
+        run: |
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+
+      - name: push to release      
+        run: |
+          git fetch --all 
+          git checkout release
+          git merge origin/master
+          git push 
+

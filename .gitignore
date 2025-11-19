@@ -170,5 +170,4 @@ cython_debug/
 **/*.db
 **/whoknows.db
 *.db
-
 /legacy
