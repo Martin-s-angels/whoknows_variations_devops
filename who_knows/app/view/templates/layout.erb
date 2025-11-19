@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <title>¿Who Knows?</title>
-<link rel="stylesheet" type="text/css" href= <% __dir__ + "/../public/style/style.css" %> >
+<link rel="stylesheet" type="text/css" link= <%= __dir__ + "/../public/style/style.css" %> >
 
 <div class="page"> <!-- ??? -->
 
@@ -9,7 +9,9 @@
 
       <h1><a id="nav-logo" href='/api/search'>¿Who Knows?</a></h1>
 
-      <% if :logged_in %>
+      <p> <% :logged_in%> </p>
+
+      <% if :logged_in == true %>
         <a id="nav-logout" href='/api/logout'>Log out</a>
       <% else %>
         <a id="nav-login" href='/login'>Log in </a>

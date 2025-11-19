@@ -18,7 +18,7 @@ get '/' do
   search_results = []
 
   if session[:logged_in] == nil
-    session[:logged_in] = "false"
+    session[:logged_in] = false
   end
 
   if query && !query.empty?
@@ -34,8 +34,8 @@ get '/' do
     #erb :search, locals: { query: nil, search_results: [], logged_in: false}
   end
 
-  erb :search, locals: { query: query, search_results: search_results, logged_in: false } #session[:logged_in] }
-
+  puts("session: " + session[:logged_in].inspect)#remove
+  erb :search, locals: { query: query, search_results: search_results, logged_in: session[:logged_in].inspect } #session[:logged_in] }
 end
 
 
@@ -112,17 +112,17 @@ post '/api/login' do
 
   else
     #flash: "succesfully logged in as (username)"
-    
     session[:logged_in] = true
+
 
   end
     
+  session[:logged_in] = true #remvoe
 
   redirect "/", 303
 end
 
 get '/api/logout' do
-  #logout.
+  session[:logged_in] = false
   redirect "/", 303
-
 end
