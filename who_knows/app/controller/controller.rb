@@ -5,14 +5,20 @@ require 'json'
 require 'sqlite3'
 require __dir__ + '/../model/users.rb'
 
-Dotenv.load('../who_knows/.dotenv/.env') #load .env from path
+Dotenv.load('../who_knows/.dotenv/.env') #environment variables.
 base_url = ENV["BASE_URL"]
-set :port, 8080
-#SERVE HTML PAGES:
 
+set :port, 8080
+enable :sessions
+
+#SERVE HTML PAGES:
 
 get '/' do
   query = params['q'] # request parameter
+
+  if session[:logged_in] 
+    puts ("logged in :))")
+  end
 
   if query && !query.empty?
     puts(base_url)
@@ -37,11 +43,7 @@ end
 
 get '/login' do
   #serve login page
-
-  #user1 = Users.new(1,"hej", "hej", "hej")#remove
-
   erb :login, locals: {error: nil}
-
 end
 
 #API'S
@@ -97,20 +99,38 @@ post '/api/login' do
   #get user from db.
   user = get_user(username)
 
-  #if user is nil
-  if (!user)
+  
+  if user == nil #if user is nil
     error = 'Invalid username'
-  elsif (false) #password invalid
+    puts ("error: " + error);
+
+  elsif !user.isPasswordValid(password)  #password invalid
     error = 'Invalid password'
+    puts ("error: " + error);
+
   else
     #flash: "succesfully logged in as (username)"
-    #login. Set user in session.
+    
+    session[:logged_in] = true
+
   end
     
-  
+
   redirect "/", 303
 end
 
 get '/api/logout' do
   #logout.
+end
+
+
+#remove:
+get '/foo' do
+  session[:message] = 'Hello World!'
+  redirect to('/bar')
+end
+
+get '/bar' do
+  session[:message]   # => 'Hello World!'
+  puts (session[:message])
 end

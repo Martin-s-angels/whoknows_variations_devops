@@ -31,6 +31,11 @@ end
     end
 =end
 
+def isPasswordValid(password)
+    # hashing stuff. use BCrypt.
+  return true;
+end
+
 def get_user(username)
     #connect to db
     db = SQLite3::Database.new(__dir__ + '/../../db/whoknows.db') 
