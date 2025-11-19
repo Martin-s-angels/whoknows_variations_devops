@@ -15,9 +15,10 @@ enable :sessions
 
 get '/' do
   query = params['q'] # request parameter
+  search_results = []
 
-  if session[:logged_in] 
-    puts ("logged in :))")
+  if session[:logged_in] == nil
+    session[:logged_in] = "false"
   end
 
   if query && !query.empty?
@@ -28,10 +29,13 @@ get '/' do
     puts "output for httparty was : #{result}"
     search_results = JSON.parse(result.body)
 
-    erb :search, locals: { query: query, search_results: search_results }
+    #erb :search, locals: { query: query, search_results: search_results, logged_in: false } #session[:logged_in] }
   else
-    erb :search, locals: { query: nil, search_results: [] }
+    #erb :search, locals: { query: nil, search_results: [], logged_in: false}
   end
+
+  erb :search, locals: { query: query, search_results: search_results, logged_in: false } #session[:logged_in] }
+
 end
 
 
@@ -96,11 +100,9 @@ post '/api/login' do
   
   error = nil
 
-  #get user from db.
-  user = get_user(username)
+  user = get_user(username)   #db query.
 
-  
-  if user == nil #if user is nil
+  if user == nil #if no user.
     error = 'Invalid username'
     puts ("error: " + error);
 
@@ -121,16 +123,6 @@ end
 
 get '/api/logout' do
   #logout.
-end
+  redirect "/", 303
 
-
-#remove:
-get '/foo' do
-  session[:message] = 'Hello World!'
-  redirect to('/bar')
-end
-
-get '/bar' do
-  session[:message]   # => 'Hello World!'
-  puts (session[:message])
 end
