@@ -11,7 +11,7 @@ Dotenv.load("dotenv/.env")
 set :port, 8080
 set :views, "app/view/templates/"
 
-get '/pages' do #??
+get '/pages' do #?? remove.
   @pages = DB.execute("SELECT * FROM pages") 
   erb :index
 end
