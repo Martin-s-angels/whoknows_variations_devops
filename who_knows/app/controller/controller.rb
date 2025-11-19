@@ -17,8 +17,8 @@ enable :sessions
 get '/' do
   query = params['q'] # request parameter
   search_results = []
+  logged_in = false; #using the same variable names for erb, always
 
-  logged_in = false;
   if session[:logged_in]
     logged_in = true
   end
@@ -30,14 +30,9 @@ get '/' do
     result = HTTParty.get(base_url + "/api/search", query: { q: query })
     puts "output for httparty was : #{result}"
     search_results = JSON.parse(result.body)
-
-    #erb :search, locals: { query: query, search_results: search_results, logged_in: false } #session[:logged_in] }
-  else
-    #erb :search, locals: { query: nil, search_results: [], logged_in: false}
   end
 
-  puts("session: " + logged_in.inspect) # session[:logged_in].inspect)#remove
-  erb :search, locals: { query: query, search_results: search_results, logged_in: logged_in } #session[:logged_in] }
+  erb :search, locals: { query: query, search_results: search_results, logged_in: logged_in } 
 end
 
 
@@ -105,7 +100,7 @@ post '/api/login' do
   if user == nil #if no user.
     flash[:error] = 'Invalid username'
 
-  elsif user.password_valid(password)  #password invalid
+  elsif user.password_valid(password) == false #password invalid
     flash[:error] = 'Invalid password'
 
   else #succesful
