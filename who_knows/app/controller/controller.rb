@@ -17,8 +17,9 @@ get '/' do
   query = params['q'] # request parameter
   search_results = []
 
-  if session[:logged_in] == nil
-    session[:logged_in] = false
+  logged_in = false;
+  if session[:logged_in]
+    logged_in = true
   end
 
   if query && !query.empty?
@@ -34,20 +35,21 @@ get '/' do
     #erb :search, locals: { query: nil, search_results: [], logged_in: false}
   end
 
-  puts("session: " + session[:logged_in].inspect)#remove
-  erb :search, locals: { query: query, search_results: search_results, logged_in: session[:logged_in].inspect } #session[:logged_in] }
+  puts("session: " + logged_in.inspect) # session[:logged_in].inspect)#remove
+  erb :search, locals: { query: query, search_results: search_results, logged_in: logged_in } #session[:logged_in] }
 end
 
 
 get '/register' do
   #serve register page
-  erb :register, locals: { error: nil }
+  erb :register, locals: { error: nil, logged_in: false }
 
 end
 
 get '/login' do
   #serve login page
-  erb :login, locals: {error: nil}
+
+  erb :login, locals: {error: nil, logged_in: false }
 end
 
 #API'S
@@ -57,7 +59,6 @@ get '/api/search' do
   puts "output search function was: #{result}"
   result.to_json
   
-  #search
 end
 
 get '/api/weather' do
@@ -113,8 +114,6 @@ post '/api/login' do
   else
     #flash: "succesfully logged in as (username)"
     session[:logged_in] = true
-
-
   end
     
   session[:logged_in] = true #remvoe
@@ -126,3 +125,16 @@ get '/api/logout' do
   session[:logged_in] = false
   redirect "/", 303
 end
+
+
+=begin 
+get '/foo' do
+  session[:message] = 'Hello World!'
+  redirect to('/bar')
+end
+
+get '/bar' do
+  session[:message]   # => 'Hello World!'
+end
+
+=end

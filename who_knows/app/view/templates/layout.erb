@@ -9,9 +9,9 @@
 
       <h1><a id="nav-logo" href='/api/search'>¿Who Knows?</a></h1>
 
-      <p> <% :logged_in%> </p>
+      <p> <%= logged_in%> </p>
 
-      <% if :logged_in == true %>
+      <% if logged_in %>
         <a id="nav-logout" href='/api/logout'>Log out</a>
       <% else %>
         <a id="nav-login" href='/login'>Log in </a>
