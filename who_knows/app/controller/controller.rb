@@ -4,6 +4,7 @@ require_relative '../model/search.rb'
 require 'json'
 require 'sqlite3'
 require __dir__ + '/../model/users.rb'
+require 'sinatra/flash'
 
 Dotenv.load('../who_knows/.dotenv/.env') #environment variables.
 base_url = ENV["BASE_URL"]
@@ -97,32 +98,28 @@ end
 
 post '/api/login' do
   username = params['username']
-  password = params['password']
-  
-  error = nil
+  password = params['password']  
 
   user = get_user(username)   #db query.
 
   if user == nil #if no user.
-    error = 'Invalid username'
-    puts ("error: " + error);
+    flash[:error] = 'Invalid username'
 
-  elsif !user.isPasswordValid(password)  #password invalid
-    error = 'Invalid password'
-    puts ("error: " + error);
+  elsif user.password_valid(password)  #password invalid
+    flash[:error] = 'Invalid password'
 
-  else
-    #flash: "succesfully logged in as (username)"
+  else #succesful
     session[:logged_in] = true
+    flash[:succes] = "succesfully logged in as" + username
   end
-    
-  session[:logged_in] = true #remvoe
-
+  
   redirect "/", 303
 end
 
 get '/api/logout' do
   session[:logged_in] = false
+  flash[:succes] = "succesfully logged out"
+
   redirect "/", 303
 end
 

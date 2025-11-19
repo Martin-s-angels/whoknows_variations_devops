@@ -14,6 +14,7 @@ class Users
         @email = email
         @password_hash = password_hash
     end
+
     def password_valid?(password)
         BCrypt::Password.new(self.password_hash) == password
     end
@@ -31,22 +32,14 @@ end
     end
 =end
 
-def isPasswordValid(password)
-    # hashing stuff. use BCrypt.
-  return true;
-end
-
 def get_user(username)
     #connect to db
     db = SQLite3::Database.new(__dir__ + '/../../db/whoknows.db') 
-    
-    #query string
     query = "SELECT * FROM users WHERE username = ?" 
 
     #execute query
     begin
         result = db.get_first_row(query, username) 
-        #puts ("row: " + row[1])
         return nil unless result
         return Users.new(result[0], result[1], result[2], result[3]) #construct user from result
     
