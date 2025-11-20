@@ -1,3 +1,5 @@
+name: release_workflow
+
 on:
   pull_request:
     types: [closed]
