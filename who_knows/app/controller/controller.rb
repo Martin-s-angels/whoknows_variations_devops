@@ -4,15 +4,24 @@ require_relative '../model/search.rb'
 require 'json'
 require 'sqlite3'
 require __dir__ + '/../model/users.rb'
+require 'sinatra/flash'
 
-Dotenv.load('../who_knows/.dotenv/.env') #load .env from path
+Dotenv.load('../who_knows/.dotenv/.env') #environment variables.
 base_url = ENV["BASE_URL"]
-set :port, 8080
-#SERVE HTML PAGES:
 
+set :port, 8080
+enable :sessions
+
+#SERVE HTML PAGES:
 
 get '/' do
   query = params['q'] # request parameter
+  search_results = []
+  logged_in = false; #using the same variable names for erb, always
+
+  if session[:logged_in]
+    logged_in = true
+  end
 
   if query && !query.empty?
     puts(base_url)
@@ -21,27 +30,22 @@ get '/' do
     result = HTTParty.get(base_url + "/api/search", query: { q: query })
     puts "output for httparty was : #{result}"
     search_results = JSON.parse(result.body)
-
-    erb :search, locals: { query: query, search_results: search_results }
-  else
-    erb :search, locals: { query: nil, search_results: [] }
   end
+
+  erb :search, locals: { query: query, search_results: search_results, logged_in: logged_in } 
 end
 
 
 get '/register' do
   #serve register page
-  erb :register, locals: { error: nil }
+  erb :register, locals: { error: nil, logged_in: false }
 
 end
 
 get '/login' do
   #serve login page
 
-  #user1 = Users.new(1,"hej", "hej", "hej")#remove
-
-  erb :login, locals: {error: nil}
-
+  erb :login, locals: {error: nil, logged_in: false }
 end
 
 #API'S
@@ -51,7 +55,6 @@ get '/api/search' do
   puts "output search function was: #{result}"
   result.to_json
   
-  #search
 end
 
 get '/api/weather' do
@@ -90,27 +93,40 @@ end
 
 post '/api/login' do
   username = params['username']
-  password = params['password']
-  
-  error = nil
+  password = params['password']  
 
-  #get user from db.
-  user = get_user(username)
+  user = get_user(username)   #db query.
 
-  #if user is nil
-  if (!user)
-    error = 'Invalid username'
-  elsif (false) #password invalid
-    error = 'Invalid password'
-  else
-    #flash: "succesfully logged in as (username)"
-    #login. Set user in session.
+  if user == nil #if no user.
+    flash[:error] = 'Invalid username'
+
+  elsif user.password_valid(password) == false #password invalid
+    flash[:error] = 'Invalid password'
+
+  else #succesful
+    session[:logged_in] = true
+    flash[:succes] = "succesfully logged in as" + username
   end
-    
   
   redirect "/", 303
 end
 
 get '/api/logout' do
-  #logout.
+  session[:logged_in] = false
+  flash[:succes] = "succesfully logged out"
+
+  redirect "/", 303
 end
+
+
+=begin 
+get '/foo' do
+  session[:message] = 'Hello World!'
+  redirect to('/bar')
+end
+
+get '/bar' do
+  session[:message]   # => 'Hello World!'
+end
+
+=end

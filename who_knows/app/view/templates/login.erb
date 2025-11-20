@@ -1,11 +1,8 @@
 <!-- login -->
 
-<p> login </p>
-
-
 <h2>Log In</h2>
-<% if (error) %>
-  <div class="error"><strong>Error:</strong> {{ error }}</div>
+<% if error %>
+  <div class="error"><strong>Error:</strong> <%= error %> }}</div>
 <% end %>
 
 <form action="/api/login" method="POST">
@@ -16,6 +13,7 @@
 
     <button id="login-button" type="submit"> Log in </button>
 </form>
+
 
 
 
