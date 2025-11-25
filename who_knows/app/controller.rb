@@ -4,7 +4,9 @@ require_relative 'model/search.rb'
 require 'json'
 require 'sqlite3'
 require_relative 'model/users.rb'
+require_relative 'model/matrixs.rb'
 require 'sinatra/flash'
+require 'httparty'
 
 Dotenv.load('../who_knows/.dotenv/.env') #environment variables.
 base_url = ENV["BASE_URL"]
@@ -24,7 +26,8 @@ get '/' do
   end
 
   if query && !query.empty?
-    puts(base_url)
+    
+    SEARCH_REQUESTS.increment
     puts "baseURL = #{ENV['BASE_URL']}"
 
     result = HTTParty.get(base_url + "/api/search", query: { q: query })
