@@ -26,6 +26,7 @@ get '/' do
   end
 
   if query && !query.empty?
+    start_time = Time.now
     
     SEARCH_REQUESTS.increment
     puts "baseURL = #{ENV['BASE_URL']}"
@@ -38,6 +39,7 @@ get '/' do
     if search_results.empty?
     SEARCH_REQUESTS_NOT_FOUND.increment
     end
+    SEACH_DURATION.observe(Time.now - start_time)
   end
 
   erb :search, locals: { query: query, search_results: search_results, logged_in: logged_in } 
