@@ -32,7 +32,12 @@ get '/' do
 
     result = HTTParty.get(base_url + "/api/search", query: { q: query })
     puts "output for httparty was : #{result}"
+
     search_results = JSON.parse(result.body)
+
+    if search_results.empty?
+    SEARCH_REQUESTS_NOT_FOUND.increment
+    end
   end
 
   erb :search, locals: { query: query, search_results: search_results, logged_in: logged_in } 
