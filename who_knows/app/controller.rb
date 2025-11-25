@@ -38,7 +38,10 @@ get '/' do
 
     if search_results.empty?
     SEARCH_REQUESTS_NOT_FOUND.increment
-    end
+    else
+    SEARCH_REQUESTS_FOUND.increment
+    end 
+    
     SEACH_DURATION.observe(Time.now - start_time)
   end
 
