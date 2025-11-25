@@ -1,9 +1,9 @@
 require 'erb'
 require 'sinatra'
-require_relative '../model/search.rb'
+require_relative 'model/search.rb'
 require 'json'
 require 'sqlite3'
-require __dir__ + '/../model/users.rb'
+require_relative 'model/users.rb'
 require 'sinatra/flash'
 
 Dotenv.load('../who_knows/.dotenv/.env') #environment variables.
