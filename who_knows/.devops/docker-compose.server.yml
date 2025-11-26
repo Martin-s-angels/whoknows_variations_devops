@@ -1,5 +1,5 @@
 services:
-  whoknows_flask:
+  whoknows_app:
     image: ghcr.io/martin-s-angels/whoknows_variations_server:latest
     ports:
       - "8080:8080"
@@ -15,7 +15,7 @@ services:
       - "80:80"
       - "443:443" #https certificate
     depends_on:
-      - whoknows_flask
+      - whoknows_app
     networks:
       - my_network
 
