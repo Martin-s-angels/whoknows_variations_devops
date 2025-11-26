@@ -1,12 +1,10 @@
 ENV['APP_ENV'] = 'test'
 
 require 'test/unit'
-require 'rack/test'
+require 'bu/test'
 
 require_relative '../../app/controller/controller'
 set :views, "../../app/view/templates" # works for now.
-
-# base_url = "localhost:8080"
 
 class DemoTest < Test::Unit::TestCase
   include Rack::Test::Methods

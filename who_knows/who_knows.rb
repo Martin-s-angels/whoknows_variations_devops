@@ -9,7 +9,7 @@ require_relative 'app/model/weather.rb'
 Dotenv.load("dotenv/.env")
 
 set :port, 8080
-set :views, "app/views/templates/"
+set :views, "app/view/templates/"
 
 get '/pages' do #?? remove.
   @pages = DB.execute("SELECT * FROM pages") 
