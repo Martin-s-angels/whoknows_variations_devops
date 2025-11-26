@@ -1,16 +1,13 @@
 services:
   whoknows_flask:
     image: ghcr.io/martin-s-angels/whoknows_variations_server:latest
-    build:
-      context: ..
-      dockerfile: .devops/Dockerfile.app
     ports:
       - "8080:8080"
     networks:
       - my_network
-    #volumes:
-    #- ../.dotenv/.env:/who_knows/.dotenv/.env:ro #.env (defined in gh actions) 
-    #- /home/adminuser/db/whoknows.db:/who_knows/db/whoknows.db #db
+    volumes:
+    - /home/adminuser/env/.env:/who_knows/.dotenv/.env:ro #.env (defined in gh actions) 
+    - /home/adminuser/db/whoknows.db:/who_knows/db/whoknows.db #db
 
   whoknows_nginx:
     image: nginx:latest
