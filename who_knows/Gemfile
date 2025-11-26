@@ -4,6 +4,8 @@ gem 'sinatra'
 gem 'puma'
 gem "rackup", "~> 2.2"
 
+gem "prometheus-client"
+
 gem 'httparty'
 gem 'erb'
 gem 'sinatra-flash'
@@ -15,4 +17,3 @@ gem 'dotenv'
 gem 'test-unit'
 gem 'rack-test'
 gem 'rubocop'
-gem "prometheus-client"
