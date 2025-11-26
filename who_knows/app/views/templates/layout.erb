@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<title>¿Who Knows?</title>
+<link rel="stylesheet" type="text/css" link= <%= __dir__ + "/../public/style/style.css" %> >
+
+<div class="page"> <!-- ??? -->
+
+  <div class="navigation">
+    <nav>
+
+      <h1><a id="nav-logo" href='/api/search'>¿Who Knows?</a></h1>
+
+      <% if logged_in %>
+        <a id="nav-logout" href='/api/logout'>Log out</a>
+      <% else %>
+        <a id="nav-login" href='/login'>Log in </a>
+        <a id="nav-register" href='/register'>Register</a>
+      <% end %>
+
+    </nav>
+  </div>
+
+  <!-- flashes ? what are flashes?? -->
+  <!--
+  {% with flashes = get_flashed_messages() %}
+  {% if flashes %}
+  <ul class="flashes">
+    {% for message in flashes %}
+    <li>{{ message }}
+      {% endfor %}
+  </ul>
+  {% endif %}
+  {% endwith %}
+-->
+
+  <div class="body">
+    <!--{% block body %}{% endblock %} --><!-- legacy -->
+    <%= yield %> <!-- display render page -->
+
+  </div>
+
+  <!-- footer -->
+  <div class="footer">
+    <span>¿Who Knows? &copy; 2009</span>
+    <a href="about.erb">About</a>
+  </div>
+</div>
