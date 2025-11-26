@@ -1,13 +1,16 @@
 services:
   whoknows_flask:
     image: ghcr.io/martin-s-angels/whoknows_variations_server:latest
+    build:
+      context: ..
+      dockerfile: .devops/Dockerfile.app
     ports:
       - "8080:8080"
     networks:
       - my_network
-    volumes:
-    - /home/adminuser/env/.env:/who_knows/.dotenv/.env:ro #.env (defined in gh actions) 
-    - /home/adminuser/db/whoknows.db:/who_knows/db/whoknows.db #db
+    #volumes:
+    #- ../.dotenv/.env:/who_knows/.dotenv/.env:ro #.env (defined in gh actions) 
+    #- /home/adminuser/db/whoknows.db:/who_knows/db/whoknows.db #db
 
   whoknows_nginx:
     image: nginx:latest
@@ -25,6 +28,21 @@ services:
       - ./network/nginx.conf:/etc/nginx/nginx.conf #nginx.conf
 
     restart: always
+
+  
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+
+  grafana:
+    image: grafana/grafana:10.2.4
+    ports:
+      - "3000:3000"
+
 
 networks:
   my_network:
