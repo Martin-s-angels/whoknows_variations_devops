@@ -19,14 +19,10 @@ services:
     networks:
       - my_network
 
-    volumes:
-      - /etc/letsencrypt/live/martins-angels.dk:/etc/letsencrypt/live/martins-angels.dk       #certificates
-      - /etc/letsencrypt/archive/martins-angels.dk:/etc/letsencrypt/archive/martins-angels.dk
-      - ./network/nginx.conf:/etc/nginx/nginx.conf #nginx.conf
-
-    restart: always
-
-  
+  volumes:
+    - ./network/nginx.conf:/etc/nginx/conf.d/default.conf
+    - /etc/letsencrypt:/etc/letsencrypt:ro
+  restart: always
   prometheus:
     image: prom/prometheus
     container_name: prometheus
