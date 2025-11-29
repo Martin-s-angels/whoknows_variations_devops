@@ -1,13 +1,9 @@
 name: continuous_delivery
 
 on:
-  workflow_run:
-    workflows:
-      - release_workflow
-    types:
-      - completed
-    branches:
-      - release
+  push:
+    branches: 
+    - release
   workflow_dispatch:
 
 jobs:
