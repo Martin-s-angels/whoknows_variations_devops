@@ -7,7 +7,7 @@ Dotenv.load(__dir__ + '/../dotenv/.env') #load .env from path
 class Users
   attr_accessor :id, :name, :email, :password_hash
 
-    #constructor
+  # constructor
   def initialize(id, name, email, password_hash)
     @id = id
     @name = name
@@ -41,7 +41,7 @@ def get_user(username)
       result = db.get_first_row(query, username) 
         return nil unless result
 
-        return Users.new(result[0], result[1], result[2], result[3]) #construct user from result
+      return Users.new(result[0], result[1], result[2], result[3]) #construct user from result
     
     rescue SQLite3::Exception => e
       puts "Error in get_user: #{e}"
