@@ -16,7 +16,7 @@ class DemoTest < Test::Unit::TestCase
   end
 
   def test_search_endpoint
-    get '/', params= {q: 'test'}#Mock web layer
+    get '/', params = {q: 'test'} #Mock web layer
     
     assert last_response.ok?
     assert last_response.body.include?('search') #last_response.body is the full html file.
@@ -24,9 +24,8 @@ class DemoTest < Test::Unit::TestCase
     #puts last_response.body #remove
     #assert_equal 'test', last_response.body #remove
 
-    assert_equal 2+2, 4 #regular unit testing #remove.
+    assert_equal 2 + 2, 4 #regular unit testing #remove.
   end
-
 end
 
 =begin

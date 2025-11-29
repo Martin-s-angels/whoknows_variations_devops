@@ -10,7 +10,7 @@ puts "Running search for: #{query}"
   sql = "SELECT * FROM pages WHERE language = 'en' AND content LIKE ?"
   pages = []
   db.execute(sql, "%#{query}%") do |row|
-  title, url, language, content = row
+    title, url, language, content = row
       pages << {
       title: title,
       url: url,
@@ -21,5 +21,3 @@ puts "Running search for: #{query}"
   puts "output was: #{pages}"
   pages
 end
-
-
