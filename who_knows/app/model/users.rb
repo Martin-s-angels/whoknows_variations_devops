@@ -21,8 +21,6 @@ class Users
   end
 end
 
-    
-
 =begin #remove or fix later.
     def open_db_connection()
         db = SQLite3::Database.new(__dir__ + '../../db/whoknows.db')

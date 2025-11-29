@@ -3,7 +3,7 @@ require 'dotenv/load'
 
 
 def search(query)
-puts "Running search for: #{query}"
+  puts "Running search for: #{query}"
   #Page = Struct.new(:id, :title, :language, :content) #??
 
   db = SQLite3::Database.new '../who_knows/db/whoknows.db' #instantiate db
