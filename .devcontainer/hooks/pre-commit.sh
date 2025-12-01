@@ -1,4 +1,4 @@
-
+#why not run
 echo "Running RuboCop auto-correct..."
 rubocop -a
 
