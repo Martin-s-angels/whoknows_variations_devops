@@ -1,6 +1,6 @@
 # Dockerfile
 
-FROM ruby
+FROM ruby:3.4.4
 
 WORKDIR /who_knows
 COPY . .

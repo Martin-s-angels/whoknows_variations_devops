@@ -21,9 +21,7 @@ get '/' do
   search_results = []
   logged_in = false; #using the same variable names for erb, always
 
-  if session[:logged_in]
-    logged_in = true
-  end
+  logged_in = true if session[:logged_in]
 
   if query && !query.empty?
     start_time = Time.now
@@ -37,9 +35,9 @@ get '/' do
     search_results = JSON.parse(result.body)
 
     if search_results.empty?
-    SEARCH_REQUESTS_NOT_FOUND.increment
+      SEARCH_REQUESTS_NOT_FOUND.increment
     else
-    SEARCH_REQUESTS_FOUND.increment
+      SEARCH_REQUESTS_FOUND.increment
     end 
     
     SEACH_DURATION.observe(Time.now - start_time)
@@ -52,7 +50,6 @@ end
 get '/register' do
   #serve register page
   erb :register, locals: { error: nil, logged_in: false }
-
 end
 
 get '/login' do
@@ -67,7 +64,6 @@ get '/api/search' do
   result = search(query)
   puts "output search function was: #{result}"
   result.to_json
-  
 end
 
 get '/api/weather' do
@@ -108,7 +104,7 @@ post '/api/login' do
   username = params['username']
   password = params['password']  
 
-  user = get_user(username)   #db query.
+  user = get_user(username) #db query.
 
   if user == nil #if no user.
     flash[:error] = 'Invalid username'
