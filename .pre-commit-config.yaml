@@ -1,0 +1,8 @@
+repos:
+  - repo: local
+    hooks:
+      - id: rubocop-autocorrect-check
+        name: RuboCop autocorrect + check
+        entry: scripts/rubocop-check.sh
+        language: system
+        types: [ruby]

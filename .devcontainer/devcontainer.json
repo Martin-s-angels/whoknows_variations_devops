@@ -9,7 +9,7 @@
 		"ghcr.io/warrenbuckley/codespace-features/sqlite:1": {},
 		"ghcr.io/nikobockerman/devcontainer-features/fish-persistent-data:2": {},
 		"ghcr.io/devcontainers-extra/features/fish-apt-get:1": {},
-		"ghcr.io/christophermacgown/devcontainer-features/easy-container-hooks:1": {}
+		"ghcr.io/devcontainers-extra/features/pre-commit:2": {}
 	},
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
@@ -19,7 +19,9 @@
 	"forwardPorts": [8080],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "cd who_knows && bundle install"
+	"postCreateCommand": "pre-commit install && cd who_knows && bundle install"
+
+
 
 	// Configure tool-specific properties.
 	// "customizations": {},
