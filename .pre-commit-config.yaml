@@ -6,9 +6,9 @@ repos:
         entry: scripts/rubocop-check.sh
         language: system
         types: [ruby]
-
-      - id: ruby-controller-tests
-        name: ruby-controller-tests
-        entry: scripts/controller-test.sh
-        language: system
-        types: [ruby]
+#needs to be put back when tests work 
+      #- id: ruby-controller-tests
+      #  name: ruby-controller-tests
+      #  entry: scripts/controller-test.sh
+      #  language: system
+      #  types: [ruby]

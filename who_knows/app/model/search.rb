@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# test for controller tests
 require 'sqlite3'
 require 'dotenv/load'
 
