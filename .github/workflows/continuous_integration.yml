@@ -1,9 +1,6 @@
+name: WhoKnows CI
 
-#on pullrequest
 on:
-  push:
-    branches:
-      - master
   pull_request:
     branches:
       - master
@@ -11,24 +8,24 @@ on:
 
 jobs:
   integration:
-    runs-on: ubuntu-latest #build vm
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: who_knows  
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
 
-      - name: bundle install 
-#        run:  cd who_knows && bundle install 
+      - name: Install dependencies
+        run: bundle install
 
-      - name: use Linter
-        run:  rubocop -a
-      - name: use check if errors from linter
-        run:  rubocop 
+      - name: Run tests
+        run: ruby test/controller/controller_test.rb
 
+      - name: Run RuboCop auto-correct
+        run: rubocop -a
 
-#Linter
-
-#Unit test
-
-# build test miljø
-# integrationstest
-
+      - name: Check for RuboCop offenses
+        run: rubocop
