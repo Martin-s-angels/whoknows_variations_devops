@@ -24,8 +24,5 @@ jobs:
       - name: Run tests
         run: ruby test/controller/controller_test.rb
 
-      - name: Run RuboCop auto-correct
-        run: rubocop -a
-
       - name: Check for RuboCop offenses
         run: rubocop
