@@ -1,4 +1,4 @@
-#why not run
+#why not run still not ? 
 echo "Running RuboCop auto-correct..."
 rubocop -a
 
