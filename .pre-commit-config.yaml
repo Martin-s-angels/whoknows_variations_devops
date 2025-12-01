@@ -2,7 +2,13 @@ repos:
   - repo: local
     hooks:
       - id: rubocop-autocorrect-check
-        name: RuboCop autocorrect + check
+        name: rubocop-autocorrect-check
         entry: scripts/rubocop-check.sh
+        language: system
+        types: [ruby]
+
+      - id: ruby-controller-tests
+        name: ruby-controller-tests
+        entry: scripts/controller-test.sh
         language: system
         types: [ruby]
