@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org/'
 
 gem 'puma'
+gem 'rackup', '~> 2.2'
 gem 'sinatra'
-gem "rackup", "~> 2.2"
 
-gem "prometheus-client"
+gem 'prometheus-client'
 
 gem 'erb'
 gem 'httparty'
