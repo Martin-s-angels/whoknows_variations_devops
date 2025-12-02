@@ -8,6 +8,18 @@ services:
       - "8080:8080"
     networks:
       - my_network
+  database:
+    image: ghcr.io/martin-s-angels/whoknows_variations_database:latest
+    build:
+      context: ..
+      dockerfile: .devops/Dockerfile.database
+    env_file:
+    - .env
+    container_name: whoknows_database
+    ports:
+      - "5432:5432"
+    networks:
+      - my_network
       
 networks:
   my_network:

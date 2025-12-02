@@ -19,6 +19,15 @@ jobs:
       - name: Log in to GitHub Container Registry
         run:  echo ${{ secrets.CR_PAT }} | docker login ghcr.io -u ${{ secrets.DOCKER_GITHUB_USERNAME }} --password-stdin
 
+          # .env file:
+      - name: Create .env file
+        # input our .env stuff here 
+        run: |
+            echo "GREETING=Hello from Github Action" >> .env
+            echo "POSTGRES_USER=${{ secrets.POSTGRES_USER}}" >> .env
+            echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD}}" >> .env
+            echo "POSTGRES_DB=${{ secrets.POSTGRES_DB}}" >> .env
+
       # build and push images
       - name: Build images
         run: docker compose -f who_knows/.devops/docker-compose.prod.yml build
