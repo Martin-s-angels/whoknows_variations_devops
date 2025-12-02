@@ -16,7 +16,7 @@ services:
       context: ..
       dockerfile: .devops/Dockerfile.database
     env_file:
-    - ../.dotenv/.env
+    - ../dotenv/.env
     restart: always
     container_name: whoknows_database
     ports:
