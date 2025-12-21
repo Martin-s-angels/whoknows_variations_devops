@@ -18,6 +18,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
 
+      - name: Install Bundler
+        run: gem install bundler
+
       - name: Install dependencies
         run: bundle install
 
