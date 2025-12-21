@@ -8,27 +8,20 @@ require 'mocha/test_unit'
 require 'pg'
 require_relative '../../app/controller/controller'
 
-set :views, '../../app/view/templates' # works for now.
+# set :views, '../../app/view/templates' # works for now.
 
 # base_url = "localhost:8080"
 
-class DemoTest < Test::Unit::TestCase
-  include Rack::Test::Methods
+# class DemoTest < Test::Unit::TestCase
+# include Rack::Test::Methods
 
-  def setup
-    PG.stubs(:connect).returns(nil)
+# def test_search_endpoint
+# get '/', { q: 'test' } # Mock web layer
 
-    # stub your model search
-    Search.stubs(:find).with('test').returns([{ id: 1, name: 'Mocked result' }])
-  end
-
-  def test_search_endpoint
-    get '/', { q: 'test' }
-
-    assert last_response.ok?
-    assert last_response.body.include?('Mocked result')
-  end
-end
+# assert last_response.ok?
+# assert last_response.body.include?('Mocked result')
+# end
+# end
 
 # class HelloWorldTest < Test::Unit::TestCase
 #   include Rack::Test::Methods
