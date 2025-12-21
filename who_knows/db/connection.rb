@@ -4,4 +4,6 @@ Dotenv.load('./dotenv/.env') # environment variables.
 
 puts File.exist?('./dotenv/.env')
 
-DB_CONN = PG.connect(ENV['DB_URI_DEV'])
+def db_conn
+  @db_conn ||= PG.connect(ENV['DB_URI_DEV'])
+end
