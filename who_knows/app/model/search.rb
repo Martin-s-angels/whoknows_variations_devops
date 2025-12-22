@@ -17,6 +17,11 @@ def search(query)
 end
 
 def MissingSearch(query)
-  sql = 'INSERT into pages_not_Found (qury) VALUES ($1)'
-  DB_CONN.exec_params(sql, [query])
+  sql = 'SELECT * FROM pages_not_found WHERE qury = $1'
+  result = DB_CONN.exec_params(sql, [query])
+
+  return unless result.ntuples == 0
+
+  insert_sql = 'INSERT INTO pages_not_found (qury) VALUES ($1)'
+  DB_CONN.exec_params(insert_sql, [query])
 end
