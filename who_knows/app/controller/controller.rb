@@ -139,3 +139,8 @@ get '/api/logout' do
 
   redirect '/', 303
 end
+
+get '/about' do
+  # serve about page
+  erb :about
+end
