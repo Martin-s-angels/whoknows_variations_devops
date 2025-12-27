@@ -10,8 +10,7 @@ def fetch_weather
   api_key = ENV['WEATHER_API_KEY']
   return nil unless api_key
 
-  city = 'Copenhagen' # You might want to make this dynamic later
-  # Changed to forecast.json and requesting 7 days of data
+  city = 'Copenhagen'
   url = "http://api.weatherapi.com/v1/forecast.json?key=#{api_key}&q=#{city}&days=7&aqi=no&alerts=no"
 
   puts "Fetching weather from: #{url}"
