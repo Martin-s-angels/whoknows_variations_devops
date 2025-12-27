@@ -6,6 +6,7 @@ require_relative '../model/search'
 require 'json'
 require 'sqlite3'
 require_relative '../model/users'
+require_relative '../model/weather'
 require_relative 'metrics'
 require 'sinatra/flash'
 require 'httparty'
@@ -25,6 +26,8 @@ get '/' do
   logged_in = false; # using the same variable names for erb, always
 
   logged_in = true if session[:logged_in]
+
+  weather = fetch_weather rescue nil
 
   if query && !query.empty?
     start_time = Time.now
@@ -46,7 +49,7 @@ get '/' do
     SEACH_DURATION.observe(Time.now - start_time)
   end
 
-  erb :search, locals: { query: query, search_results: search_results, logged_in: logged_in }
+  erb :search, locals: { query: query, search_results: search_results, logged_in: logged_in, weather: weather }
 end
 
 get '/register' do
@@ -66,6 +69,14 @@ get '/api/search' do
   result = search(query)
   puts "output search function was: #{result}"
   result.to_json
+end
+
+get '/weather' do
+  weather = fetch_weather
+  error = nil
+
+  error = 'unable to fetch weather data' unless weather
+  erb :weather, locals: { weather: weather, error: error, logged_in: session[:logged_in] }
 end
 
 get '/api/weather' do

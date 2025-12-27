@@ -1,4 +1,3 @@
-/* --- Color Variables (Same as before) --- */
 :root {
     --color-soft-pink: #f2b5ca;
     --color-pale-rose: #f7d4e0;
@@ -400,3 +399,32 @@ div.error {
 
 .chance-rain { color: #5c8a8a; font-size: 0.85rem; font-weight: 600; background: #e0f2f1; padding: 5px; border-radius: 8px; }
 .chance-snow { color: #5c6bc0; font-size: 0.85rem; font-weight: 600; background: #e8eaf6; padding: 5px; border-radius: 8px; }
+
+
+/* WEATHER WIDGET */
+
+.weather-widget-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.weather-widget-icon img {
+    width: 32px;
+    height: 32px;
+    margin-right: 12px;
+}
+
+.weather-widget-info {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+    text-align: left;
+}
+
+.weather-widget-text {
+    color: #94a3b8;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
