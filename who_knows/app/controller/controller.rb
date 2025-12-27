@@ -14,6 +14,7 @@ Dotenv.load('../who_knows/.dotenv/.env') # environment variables.
 base_url = ENV['BASE_URL']
 
 set :port, 8080
+set :public_folder, File.join(File.dirname(__FILE__), '../views/public')
 enable :sessions
 
 # SERVE HTML PAGES:
@@ -115,7 +116,7 @@ post '/api/login' do
 
   else # succesful
     session[:logged_in] = true
-    flash[:succes] = "succesfully logged in as#{username}"
+    flash[:succes] = "Succesfully logged in as #{username}"
   end
 
   redirect '/', 303
@@ -123,7 +124,7 @@ end
 
 get '/api/logout' do
   session[:logged_in] = false
-  flash[:succes] = 'succesfully logged out'
+  flash[:succes] = 'Succesfully logged out'
 
   redirect '/', 303
 end

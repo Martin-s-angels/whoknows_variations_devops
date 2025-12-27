@@ -1,86 +1,402 @@
+/* --- Color Variables (Same as before) --- */
+:root {
+    --color-soft-pink: #f2b5ca;
+    --color-pale-rose: #f7d4e0;
+    --color-cream: #f7f3ed;
+    --color-lavender-grey: #d7d0db;
+    --color-dark-charcoal: #231f20;
+    
+    --color-text-primary: #231f20;
+    --color-text-secondary: #6e6670;
+    --color-link: #d27da3; 
+    --color-link-hover: #b05c82;
+    --color-white: #ffffff;
+}
+
+/* --- Reset & Base --- */
+* {
+    box-sizing: border-box;
+}
+
 body {
-  background: #f8f8f8;
-  font-family: sans-serif;
+    background-color: var(--color-cream); /* Warm full-page background */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--color-text-primary);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0; /* Removed padding to allow full-width bars */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-/* Website Defaults */ /*legacy*/
-body {
-    font-family: 'Trebuchet MS', sans-serif;
-    font-size: 14px;
+a {
+    text-decoration: none;
+    color: var(--color-link);
+    font-weight: 600;
+    transition: all 0.3s ease;
 }
 
-div.page div.body {
-    padding: 10px;
+a:hover {
+    color: var(--color-link-hover);
+    text-decoration: underline;
 }
 
-div.page div.footer {
-    background: #eee;
-    color: #888;
-    padding: 5px 10px;
-    font-size: 12px;
+/* --- Layout Container --- */
+/* .page now acts as a flexible wrapper for the whole viewport */
+.page {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    /* Removed box-shadow, border-radius, and borders for full-width look */
 }
 
-
-ul.flashes {
-    list-style: none;
-    margin: 10px 10px 0 10px;
-    padding: 0;
+/* --- Navigation --- */
+.navigation {
+    width: 100%;
+    background-color: var(--color-pale-rose); /* Pink bar stretches full width */
+    border-bottom: 1px solid var(--color-soft-pink);
 }
 
-ul.flashes li {
-    background: #B9F3ED;
-    border: 1px solid #81CEC6;
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-    padding: 4px;
-    font-size: 13px;
-}
-
-div.error {
-    margin: 10px 0;
-    background: #FAE4E4;
-    border: 1px solid #DD6F6F;
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-    padding: 4px;
-    font-size: 13px;
-}
-
-
-/* Custom Styles */
 nav {
-    white-space: nowrap;
-    text-align: center;
+    /* Content Centering Wrapper */
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px 40px; /* Padding handles space on smaller screens */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-nav h1, nav a {
+nav h1 {
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+#nav-logo {
+    color: var(--color-dark-charcoal);
+    font-family: 'Georgia', serif;
+    font-weight: bold;
+    text-decoration: none;
+    letter-spacing: 1px;
+}
+
+nav a:not(#nav-logo) {
+    color: var(--color-dark-charcoal);
+    margin-left: 15px;
+    font-size: 0.95rem;
+    padding: 8px 16px;
+    border-radius: 25px;
+    background-color: rgba(255, 255, 255, 0.5);
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+nav a:not(#nav-logo):hover {
+    background-color: var(--color-soft-pink);
+    color: var(--color-white);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(242, 181, 202, 0.4);
+}
+
+/* --- Main Content Area --- */
+.body {
+    flex: 1; /* Pushes footer down */
+    width: 100%;
+    max-width: 1000px; /* Keeps content readable/centered */
+    margin: 0 auto;
+    padding: 60px 40px;
+}
+
+h1, h2, h3 {
+    color: var(--color-dark-charcoal);
+    font-weight: 700;
+}
+
+h2 {
+    border-bottom: 3px solid var(--color-pale-rose);
+    padding-bottom: 10px;
     display: inline-block;
-    margin-right: 20px;
+    margin-top: 0;
+    margin-bottom: 30px;
 }
 
-#nav-login, #nav-register, #nav-logout {
-    float: right;
+/* --- Forms & Inputs --- */
+form {
+    max-width: 600px; /* Slightly wider forms */
+    margin: 0 auto;
+    background-color: var(--color-white);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(215, 208, 219, 0.3);
+    border: 1px solid var(--color-lavender-grey);
 }
 
-input {
-    width: 85%;
-    padding: 10px;
-    margin: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 20px;
+    border: 2px solid var(--color-lavender-grey);
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #fafafa;
+    transition: all 0.3s;
+    color: var(--color-dark-charcoal);
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--color-soft-pink);
+    background-color: var(--color-white);
+    box-shadow: 0 0 0 4px rgba(242, 181, 202, 0.2);
 }
 
 button {
-    width: 10%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f0f0f0;
+    display: block;
+    width: 100%;
+    font-weight: 700;
+    text-align: center;
     cursor: pointer;
-    margin-left: 10px;
+    background-color: var(--color-dark-charcoal);
+    border: 2px solid var(--color-dark-charcoal);
+    color: var(--color-white);
+    padding: 14px 20px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    transition: all 0.3s;
+    margin-top: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-button:active {
-    background-color: #e0e0e0;
-    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+button:hover {
+    background-color: var(--color-soft-pink);
+    border-color: var(--color-soft-pink);
+    color: var(--color-dark-charcoal);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(35, 31, 32, 0.2);
 }
+
+/* --- Search Page Specifics --- */
+.body > div:first-child { 
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+#search-input {
+    width: 100%;
+    max-width: 600px; /* Restrict width on large screens */
+    padding: 18px 24px;
+    border: 2px solid var(--color-lavender-grey);
+    border-radius: 50px;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    transition: border-color 0.3s;
+    background-color: var(--color-white);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+#search-input:focus {
+    outline: none;
+    border-color: var(--color-soft-pink);
+}
+
+#search-button {
+    width: auto;
+    min-width: 150px;
+    display: inline-block;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    padding: 14px 30px;
+    background-color: var(--color-soft-pink);
+    border-color: var(--color-soft-pink);
+    color: var(--color-dark-charcoal);
+    box-shadow: 0 4px 10px rgba(242, 181, 202, 0.4);
+}
+
+#search-button:hover {
+    background-color: var(--color-dark-charcoal);
+    border-color: var(--color-dark-charcoal);
+    color: var(--color-white);
+}
+
+/* Search Results Cards */
+#results > div {
+    margin-bottom: 20px;
+    padding: 30px;
+    background: var(--color-white);
+    border-radius: 12px;
+    border-left: 5px solid var(--color-soft-pink);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+    transition: all 0.3s ease;
+}
+
+#results > div:hover {
+    transform: translateX(5px);
+    box-shadow: 0 8px 25px rgba(215, 208, 219, 0.6);
+}
+
+.search-result-title {
+    font-size: 1.3rem;
+    color: var(--color-dark-charcoal);
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* --- Alerts & Flashes --- */
+ul.flashes {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+ul.flashes li {
+    padding: 20px;
+    background-color: var(--color-lavender-grey);
+    color: var(--color-dark-charcoal);
+    text-align: center;
+    border-bottom: 1px solid #fff;
+    font-weight: 600;
+}
+
+div.error {
+    background-color: var(--color-pale-rose);
+    color: #b05c82;
+    border: 1px solid var(--color-soft-pink);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    text-align: center;
+    font-weight: 600;
+}
+
+/* --- Footer --- */
+.footer {
+    width: 100%;
+    background-color: var(--color-lavender-grey); /* Grey bar stretches full width */
+    padding: 40px 20px;
+    text-align: center;
+    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+    margin-top: 40px;
+}
+
+.footer span, .footer a {
+    /* Optional: Center alignment if flex wasn't implied by text-align */
+    display: inline-block; 
+}
+
+.footer a {
+    color: var(--color-dark-charcoal);
+    margin-left: 15px;
+    font-weight: 700;
+}
+
+.footer a:hover {
+    color: var(--color-white);
+}
+
+/* weather */
+
+.weather-header { text-align: center; margin-bottom: 40px; }
+.weather-time { color: var(--color-text-secondary); font-size: 1.1rem; }
+
+/* Hero Card */
+.weather-hero {
+    background-color: var(--color-white);
+    border: 2px solid var(--color-pale-rose);
+    border-radius: 20px;
+    padding: 40px;
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    box-shadow: 0 10px 30px rgba(242, 181, 202, 0.2); /* Soft pink glow */
+}
+
+.weather-main { text-align: center; min-width: 150px; }
+.weather-main img { width: 100px; height: 100px; }
+.weather-main h3 { margin: 10px 0; font-size: 1.8rem; color: var(--color-link-hover); }
+
+.weather-temp { text-align: center; min-width: 150px; }
+.temp-value { font-size: 4rem; font-weight: 800; color: var(--color-dark-charcoal); line-height: 1; }
+.weather-temp p { color: var(--color-text-secondary); margin-top: 5px; }
+
+.weather-details { 
+    min-width: 200px; 
+    color: var(--color-text-primary); 
+    line-height: 2; 
+    background-color: var(--color-cream); 
+    padding: 20px; 
+    border-radius: 12px; 
+}
+
+/* Astronomy Grid */
+.astro-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
+    gap: 20px; 
+    margin-bottom: 50px; 
+}
+
+.astro-card {
+    background: var(--color-white);
+    border: 2px solid var(--color-lavender-grey);
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    transition: transform 0.2s;
+}
+.astro-card:hover { transform: translateY(-5px); border-color: var(--color-soft-pink); }
+.astro-icon { font-size: 2rem; margin-bottom: 5px; }
+.astro-card strong { display: block; color: var(--color-link-hover); margin-bottom: 5px; }
+
+/* Forecast Grid */
+.section-title { width: 100%; text-align: center; margin-bottom: 30px; }
+
+.forecast-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
+    gap: 20px; 
+}
+
+.forecast-card {
+    background: var(--color-white);
+    border: 1px solid var(--color-lavender-grey);
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+}
+
+.forecast-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(215, 208, 219, 0.5);
+    border-color: var(--color-soft-pink);
+}
+
+.forecast-date { color: var(--color-link); display: block; margin-bottom: 10px; font-size: 1.1rem; }
+.forecast-condition { display: flex; flex-direction: column; align-items: center; margin-bottom: 10px; }
+.forecast-condition img { width: 50px; height: 50px; }
+.forecast-condition span { font-size: 0.9rem; font-weight: 600; color: var(--color-text-secondary); }
+
+.forecast-temps { margin-bottom: 10px; font-weight: bold; }
+.forecast-temps .high { color: var(--color-dark-charcoal); }
+.forecast-temps .low { color: #999; }
+
+.chance-rain { color: #5c8a8a; font-size: 0.85rem; font-weight: 600; background: #e0f2f1; padding: 5px; border-radius: 8px; }
+.chance-snow { color: #5c6bc0; font-size: 0.85rem; font-weight: 600; background: #e8eaf6; padding: 5px; border-radius: 8px; }
