@@ -11,7 +11,7 @@ services:
     networks:
       - my_network
     depends_on:
-    - database
+      - database
 
   database:
     build:

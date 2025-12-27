@@ -4,6 +4,7 @@ import config from '../knexfile.js';
 const sqliteDb = knex(config.sqlite);
 const pgDb = knex(config.development);
 
+//convert sqlite (html)pages to postgres 
 export async function up() {
   try {
     const pages = await sqliteDb('pages').select('*');
@@ -19,11 +20,12 @@ export async function up() {
     }));
 
     await pgDb.batchInsert('pages', insertData, 100);
-
     console.log(`Migrated ${pages.length} pages`);
+
   } catch (err) {
     console.error('Migration error:', err);
     throw err;
+    
   } finally {
     await sqliteDb.destroy();
     await pgDb.destroy();

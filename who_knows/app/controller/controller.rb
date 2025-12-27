@@ -39,7 +39,7 @@ get '/' do
 
     if search_results.empty?
       SEARCH_REQUESTS_NOT_FOUND.increment
-      MissingSearch(query)
+      missing_search(query)
     else
       SEARCH_REQUESTS_FOUND.increment
     end
