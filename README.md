@@ -2,8 +2,6 @@
 
 **¿Who Knows?** is a search engine application originally built in 2009. This repository represents a modern DevOps transformation of that legacy application, migrating it from a legacy Python environment to a containerized Ruby/Sinatra architecture with a full CI/CD pipeline and monitoring stack.
 
-> **Note:** This repository is intended for educational purposes (DevOps, Refactoring, Security). It may contain intentional vulnerabilities or architectural decisions meant for demonstration.
-
 ## 📊 Build Status
 
 | Workflow | Status |
