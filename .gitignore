@@ -172,3 +172,4 @@ cython_debug/
 *.db
 /legacy
 legacy/*
+*node_modules

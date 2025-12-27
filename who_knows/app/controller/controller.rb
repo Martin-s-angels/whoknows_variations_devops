@@ -9,8 +9,9 @@ require_relative '../model/users'
 require_relative 'metrics'
 require 'sinatra/flash'
 require 'httparty'
+require_relative '../../db/connection'
 
-Dotenv.load('../who_knows/.dotenv/.env') # environment variables.
+Dotenv.load('../../dotenv/.env') # environment variables.
 base_url = ENV['BASE_URL']
 
 set :port, 8080
@@ -38,6 +39,7 @@ get '/' do
 
     if search_results.empty?
       SEARCH_REQUESTS_NOT_FOUND.increment
+      missing_search(query)
     else
       SEARCH_REQUESTS_FOUND.increment
     end

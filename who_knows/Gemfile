@@ -16,6 +16,8 @@ gem 'bcrypt' # for hashing the user passwords
 gem 'dotenv'
 gem 'sqlite3'
 
+gem 'mocha'
+gem 'pg'
 gem 'rack-test'
 gem 'rubocop'
 gem 'test-unit'
