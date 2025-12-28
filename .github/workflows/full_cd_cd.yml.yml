@@ -1,10 +1,14 @@
-name: release_workflow
+name: full_cd_cd
 
 on:
   pull_request:
     types: [closed]
-    branches:
-      - master
+    branches: [master]
+  push:
+    branches: [release]
+  workflow_run:
+    workflows: [full_cd_cd]
+    types: [completed]
   workflow_dispatch:
   
 jobs:
@@ -34,18 +38,10 @@ jobs:
           git merge origin/master
           git push 
 
-name: continuous_delivery
-needs: release-to-release
-on:
-  push:
-    branches: 
-    - release
-  workflow_dispatch:
-
-jobs:
   build-and-push:
     runs-on: ubuntu-latest #build vm
-
+    needs: deploy-to-release
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/release' }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
@@ -71,22 +67,9 @@ jobs:
       - name: Push images
         run: docker compose -f who_knows/.devops/docker-compose.prod.yml push 
 
-name: continuous_deployment
-needs: continuous_delivery
-#setup secrets.
-
-on:
-  workflow_run:
-    workflows:
-      - continuous_delivery
-    types:
-      - completed
-    branches:
-      - release
-  workflow_dispatch:
-
-jobs:
   deploy:
+    needs: build-and-push
+    if: ${{ github.event_name == 'workflow_run' || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     env:
       SSH_USER: ${{ secrets.SSH_USER }} # SSH user needs sudo
