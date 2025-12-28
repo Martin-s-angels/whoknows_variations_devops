@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
   
 jobs:
-  deploy-to-release:
+  merge-with-release:
     runs-on: ubuntu-latest
 
     permissions:
@@ -35,7 +35,7 @@ jobs:
           git merge origin/master
           git push 
 
-  build-and-push:
+  deliver:
     runs-on: ubuntu-latest #build vm
     needs: deploy-to-release
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/release' }}
@@ -120,6 +120,7 @@ jobs:
         env:
           SSH_USER: ${{ secrets.SSH_USER }}
           SSH_HOST: ${{ secrets.SSH_HOST }}
+
 
 
 
