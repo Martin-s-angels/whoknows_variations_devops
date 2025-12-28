@@ -1,20 +1,90 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather</title>
-</head>
-<body>
-    <h1>weather</h1>
+<% if weather && weather["location"] && weather["current"] %>
+    
+    <div class="weather-header">
+        <h2><%= weather["location"]["name"] %>, <%= weather["location"]["country"] %></h2>
+        <p class="weather-time"><%= weather["location"]["localtime"] %></p>
+    </div>
 
-    <% if weather && weather["location"] && weather["current"] %>
-        <h2>weather in <%= weather["location"]["name"] %></h2>
-        <p>temperature: <%= weather["current"]["temp_c"] %> °C</p>
+    <div class="weather-hero">
+        
+        <div class="weather-main">
+            <img src="https:<%= weather["current"]["condition"]["icon"] %>" alt="Weather icon">
+            <h3><%= weather["current"]["condition"]["text"] %></h3>
+        </div>
 
-    <% else %>
-        <p>no weather data available</p>
+        <div class="weather-temp">
+            <div class="temp-value">
+                <%= weather["current"]["temp_c"] %>°C
+            </div>
+            <p>Feels like <strong><%= weather["current"]["feelslike_c"] %>°C</strong></p>
+        </div>
+
+        <div class="weather-details">
+            <div>💨 <strong>Wind:</strong> <%= weather["current"]["wind_kph"] %> kph (<%= weather["current"]["wind_dir"] %>)</div>
+            <div>💧 <strong>Humidity:</strong> <%= weather["current"]["humidity"] %>%</div>
+            <div>☂️ <strong>Precipitation:</strong> <%= weather["current"]["precip_mm"] %> mm</div>
+            <div>👁️ <strong>UV Index:</strong> <%= weather["current"]["uv"] %></div>
+        </div>
+    </div>
+
+    <% if weather["forecast"] && weather["forecast"]["forecastday"][0] %>
+    <% today = weather["forecast"]["forecastday"][0]["astro"] %>
+    <div class="astro-grid">
+        <div class="astro-card">
+            <div class="astro-icon">🌅</div>
+            <strong>Sunrise</strong>
+            <span><%= today["sunrise"] %></span>
+        </div>
+        <div class="astro-card">
+            <div class="astro-icon">🌇</div>
+            <strong>Sunset</strong>
+            <span><%= today["sunset"] %></span>
+        </div>
+        <div class="astro-card">
+            <div class="astro-icon">🌑</div>
+            <strong>Moon Phase</strong>
+            <span><%= today["moon_phase"] %></span>
+        </div>
+    </div>
     <% end %>
 
-</body>
-</html>
+    <h2 class="section-title">Forecast</h2>
+    <div class="forecast-grid">
+        <% if weather["forecast"] %>
+            <% weather["forecast"]["forecastday"].each do |day| %>
+                <div class="forecast-card">
+                    <strong class="forecast-date"><%= day["date"] %></strong>
+                    
+                    <div class="forecast-condition">
+                        <img src="https:<%= day["day"]["condition"]["icon"] %>" alt="icon">
+                        <span><%= day["day"]["condition"]["text"] %></span>
+                    </div>
+
+                    <div class="forecast-temps">
+                        <span class="high">H: <%= day["day"]["maxtemp_c"] %>°</span> / 
+                        <span class="low">L: <%= day["day"]["mintemp_c"] %>°</span>
+                    </div>
+
+                    <% if day["day"]["daily_chance_of_rain"] > 0 %>
+                        <div class="chance-rain">
+                            🌧️ <%= day["day"]["daily_chance_of_rain"] %>% Rain
+                        </div>
+                    <% end %>
+                    
+                    <% if day["day"]["daily_chance_of_snow"] > 0 %>
+                        <div class="chance-snow">
+                            ❄️ <%= day["day"]["daily_chance_of_snow"] %>% Snow
+                        </div>
+                    <% end %>
+                </div>
+            <% end %>
+        <% end %>
+    </div>
+
+<% else %>
+    <div class="error">
+        <h3>Weather Data Unavailable</h3>
+        <p><%= locals[:error] || "Unable to retrieve weather data at this time. Please try again later." %></p>
+        <p style="font-size: 0.8rem; margin-top: 10px;">(Check your API key in .env)</p>
+    </div>
+<% end %>

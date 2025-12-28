@@ -1,26 +1,28 @@
-#To run this file with sqlite: bundle exec ruby queries.rb 
-#Make sure to have 
+# frozen_string_literal: true
+
+# To run this file with sqlite: bundle exec ruby queries.rb
+# Make sure to have
 require 'sqlite3'
 require 'dotenv/load'
 require 'bcrypt'
 
-Dotenv.load('../dotenv/.env') #load .env from path
+Dotenv.load('../dotenv/.env') # load .env from path
 
-Page = Struct.new(:id, :title, :language, :content) #??
+Page = Struct.new(:id, :title, :language, :content) # ??
 
 begin
-  db = SQLite3::Database.new "whoknows.db"
+  db = SQLite3::Database.new 'whoknows.db'
 
-  #insert default user. (On test db)
+  # insert default user. (On test db)
   def insert_user_query(db)
     username = ENV['TEST_USERNAME']
-    email    = ENV['TEST_EMAIL'] #unique
+    email    = ENV['TEST_EMAIL'] # unique
     password = ENV['TEST_PASSWORD']
     pw_hash = BCrypt::Password.create(password)
 
-    query = "INSERT INTO users (username, email, pw_hash) VALUES (?,?,?)"
-    db.execute(query,[username, email, pw_hash]) #run query
-    db.last_insert_row_id #Auto increment
+    query = 'INSERT INTO users (username, email, pw_hash) VALUES (?,?,?)'
+    db.execute(query, [username, email, pw_hash]) # run query
+    db.last_insert_row_id # Auto increment
   end
 
   # def get_user_id_query(db)
@@ -66,34 +68,34 @@ begin
     pages
   end
 
-### run methods:
+  ### run methods:
 
   last_id = insert_user_query(db)
   if last_id
     puts "InsertUserQuery: Inserted user with id #{last_id}"
   else
-    puts "InsertUserQuery error"
+    puts 'InsertUserQuery error'
   end
 
   user_id = get_user_id_query(db)
   if user_id
     puts "GetUserIDQuery: User 'johndoe' has id #{user_id}"
   else
-    puts "GetUserIDQuery error"
+    puts 'GetUserIDQuery error'
   end
 
   id, username, email, pw_hash = get_user_by_id_query(db)
   if id
     puts "GetUserByIDQuery: id=#{id} username=#{username} email=#{email} pw_hash=#{pw_hash}"
   else
-    puts "GetUserByIDQuery error"
+    puts 'GetUserByIDQuery error'
   end
 
   id, username, email, pw_hash = get_user_by_username_query(db)
   if id
     puts "GetUserByUsernameQuery: id=#{id} username=#{username} email=#{email} pw_hash=#{pw_hash}"
   else
-    puts "GetUserByUsernameQuery error"
+    puts 'GetUserByUsernameQuery error'
   end
 
   pages = search_pages_query(db)
@@ -102,11 +104,10 @@ begin
       puts "SearchPagesQuery: id=#{page.id} title=#{page.title} language=#{page.language} content=#{page.content}"
     end
   else
-    puts "SearchPagesQuery error"
+    puts 'SearchPagesQuery error'
   end
-
 rescue SQLite3::Exception => e
   puts "Database error: #{e}"
 ensure
-  db.close if db #close db.
+  db&.close # close db.
 end
