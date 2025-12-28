@@ -4,8 +4,6 @@ on:
   pull_request:
     types: [closed]
     branches: [master]
-  push:
-    branches: [release]
   workflow_dispatch:
   
 jobs:
@@ -38,10 +36,14 @@ jobs:
   deliver:
     runs-on: ubuntu-latest #build vm
     needs: merge-with-release
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/release' }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
+
+      - name: go to release       
+        run: |
+          git fetch --all 
+          git checkout release
 
       # login on GH. with CR_PAT
       # this might work or we just have to do it the way he did it where we have to login 
@@ -66,13 +68,18 @@ jobs:
 
   deploy:
     needs: deliver
-    if: ${{ github.event_name == 'workflow_run' || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     env:
       SSH_USER: ${{ secrets.SSH_USER }} # SSH user needs sudo
       SSH_HOST: ${{ secrets.SSH_HOST }}
 
     steps:
+
+      - name: go to release       
+        run: |
+          git fetch --all 
+          git checkout release
+
       - name: Add SSH key to GitHub runner
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }} #?? not public key?
