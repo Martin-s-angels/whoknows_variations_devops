@@ -10,8 +10,9 @@ require_relative '../model/weather'
 require_relative 'metrics'
 require 'sinatra/flash'
 require 'httparty'
+require_relative '../../db/connection'
 
-Dotenv.load('../who_knows/.dotenv/.env') # environment variables.
+Dotenv.load('../../dotenv/.env') # environment variables.
 base_url = ENV['BASE_URL']
 
 set :port, 8080
@@ -23,11 +24,15 @@ enable :sessions
 get '/' do
   query = params['q'] # request parameter
   search_results = []
-  logged_in = false; # using the same variable names for erb, always
 
+  logged_in = false; # using the same variable names for erb, always
   logged_in = true if session[:logged_in]
 
-  weather = fetch_weather rescue nil
+  weather = begin
+    fetch_weather
+  rescue StandardError
+    nil
+  end # fetch weather
 
   if query && !query.empty?
     start_time = Time.now
@@ -42,6 +47,7 @@ get '/' do
 
     if search_results.empty?
       SEARCH_REQUESTS_NOT_FOUND.increment
+      missing_search(query)
     else
       SEARCH_REQUESTS_FOUND.increment
     end

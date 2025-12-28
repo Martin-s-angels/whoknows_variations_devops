@@ -10,20 +10,28 @@ services:
       - ..:/who_knows  
     networks:
       - my_network
+    depends_on:
+      - database
 
-  prometheus:
-    image: prom/prometheus
-    container_name: prometheus
-    volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+  database:
+    build:
+      context: ..
+      dockerfile: .devops/Dockerfile.database
+    env_file:
+    - ../dotenv/.env
+    restart: always
+    container_name: whoknows_database
     ports:
-      - "9090:9090"
-
-  grafana:
-    image: grafana/grafana:10.2.4
-    ports:
-      - "3000:3000"
-
+      - "5432:5432"
+    volumes: 
+      - database:/var/lib/postgresql
+    networks:
+      - my_network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+      
+volumes:
+  database:
 
 networks:
   my_network:

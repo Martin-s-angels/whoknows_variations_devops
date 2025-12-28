@@ -18,8 +18,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
 
-      - name: Install dependencies
-        run: bundle install
+      - name: Build CI image
+        run: docker build -f ./.devops/Dockerfile.intergration -t who_knows_ci .
 
       - name: Run tests
-        run: ruby test/controller/controller_test.rb
+        run: docker run --rm who_knows_ci
