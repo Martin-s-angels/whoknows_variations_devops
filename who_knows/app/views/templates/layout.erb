@@ -5,56 +5,38 @@
   <title>¿Who Knows?</title>
   <link rel="stylesheet" type="text/css" href="/style/style.css">
 </head>
+
 <body>
+  <nav class="navigation">
+    <h1><a id="nav-logo" href="/">¿Martin's Angels?</a></h1>
+    <div>
+      <% if locals[:logged_in] %>
+        <a id="nav-logout" href="/api/logout">Log out</a>
+      <% else %>
+        <a id="nav-login" href="/login">Log in</a>
+        <a id="nav-register" href="/register">Register</a>
+      <% end %>
+    </div>
+  </nav>
 
-<div class="page">
-  <div class="navigation">
-    <nav>
-      <h1><a id="nav-logo" href="/">¿Martin's Angels?</a></h1>
-      <div>
-        <% if locals[:logged_in] %>
-          <a id="nav-logout" href="/api/logout">Log out</a>
-        <% else %>
-          <a id="nav-login" href="/login">Log in</a>
-          <a id="nav-register" href="/register">Register</a>
-        <% end %>
-      </div>
-    </nav>
-  </div>
-
+  <!-- use flashes to send messages to users -->
   <% if flash.keys.any? %>
     <ul class="flashes">
       <% flash.keys.each do |type| %>
-        <li class="<%= type %>"><%= flash[type] %></li>
+        <li class="<%= type %>"> <%= flash[type] %> </li>
       <% end %>
     </ul>
   <% end %>
 
-    <!-- flashes ? what are flashes?? -->
-  <!--
-  {% with flashes = get_flashed_messages() %}
-  {% if flashes %}
-  <ul class="flashes">
-    {% for message in flashes %}
-    <li>{{ message }}
-      {% endfor %}
-  </ul>
-  {% endif %}
-  {% endwith %}
-  -->
-
-  <div class="body">
-    <!--{% block body %}{% endblock %} --><!-- legacy -->
+  <main class="body">
     <%= yield %> <!-- display render page -->
-
-  </div>
+  </main>
 
   <!-- footer -->
-  <div class="footer">
+  <footer class="footer">
     <span>¿Who Knows? &copy; 2009-2025</span>
     <a href="/about">About</a>
-  </div>
-</div>
+  </footer>
 
 </body>
 </html>
