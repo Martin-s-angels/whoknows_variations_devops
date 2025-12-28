@@ -85,16 +85,6 @@ on:
       - release
   workflow_dispatch:
 
-
-#needs: continuous_delivery.
-# ssh ind i vm
-
-# SCP docker-compose.server.yml
-
-# docker-compose
-  # pull
-  # up
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -118,6 +108,8 @@ jobs:
             echo "GREETING=Hello from Github Action" >> .env
             echo "WEATHER_API_KEY=${{ secrets.WEATHER_API_KEY}}" >> .env
             echo "BASE_URL=${{ secrets.BASE_URL}}" >> .env
+            echo "DB_URI_PROD=${{ secrets.DB_URI_PROD}}" >> .env
+
 
       - name: Transfer .env file to server
         run: |
