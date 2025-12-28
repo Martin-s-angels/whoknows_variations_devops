@@ -5,7 +5,8 @@ on:
     types: [closed]
     branches:
       - master
-
+  workflow_dispatch:
+  
 jobs:
   deploy-to-release:
     runs-on: ubuntu-latest
