@@ -2,81 +2,61 @@
 
 require 'dotenv'
 require 'bcrypt'
-require 'sqlite3'
-
-Dotenv.load("#{__dir__}/../dotenv/.env") # load .env from path
+require_relative '../../db/connection'
+Dotenv.load("#{__dir__}/../dotenv/.env")
 
 class Users
   attr_accessor :id, :name, :email, :password_hash
 
-  # constructor
-  def initialize(id, name, email, _password_hash)
+  def initialize(id, name, email, password_hash)
     @id = id
     @name = name
     @email = email
+    @password_hash = password_hash
   end
 
-  def password_valid(_password)
-    true # fix this.
-    # BCrypt::Password.new(self.password_hash) == password
+  def password_valid(password)
+    BCrypt::Password.new(@password_hash) == password
   end
 end
 
-# #remove or fix later.
-#     def open_db_connection()
-#         db = SQLite3::Database.new(__dir__ + '../../db/whoknows.db')
-#         puts("connect to db")
-#     end
-#
-#     def close_db_connection()
-#     end
-
 def get_user(username)
-  # connect to db
-  db = SQLite3::Database.new("#{__dir__}/../../db/whoknows.db")
-  query = 'SELECT * FROM users WHERE username = ?'
+  sql = 'SELECT * FROM users WHERE username = $1'
 
-  # execute query
   begin
-    result = db.get_first_row(query, username)
-    return nil unless result
+    result = DB_CONN.exec_params(sql, [username])
+    return nil if result.ntuples.zero?
 
-    Users.new(result[0], result[1], result[2], result[3]) # construct user from result
-  rescue SQLite3::Exception => e
+    row = result[0]
+    Users.new(row['id'], row['username'], row['email'], row['pw_hash'])
+  rescue PG::Exception => e
     puts "Error in get_user: #{e}"
     nil
-  ensure
-    db&.close
   end
 end
 
 def get_user_by_email(email)
-  db = SQLite3::Database.new("#{__dir__}/../../db/whoknows.db")
-  query = 'SELECT * FROM users WHERE email = ?'
-  begin
-    result = db.get_first_row(query, email)
-    return nil unless result
+  sql = 'SELECT * FROM users WHERE email = $1'
 
-    Users.new(result[0], result[1], result[2], result[3])
-  rescue SQLite3::Exception => e
+  begin
+    result = DB_CONN.exec_params(sql, [email])
+    return nil if result.ntuples.zero?
+
+    row = result[0]
+    Users.new(row['id'], row['username'], row['email'], row['pw_hash'])
+  rescue PG::Exception => e
     puts "Error in get_user_by_email: #{e}"
     nil
-  ensure
-    db&.close
   end
 end
 
 def add_user(username, email, password)
-  db = SQLite3::Database.new("#{__dir__}/../../db/whoknows.db")
-
-  pw_hash = BCrypt::Password.create(password) # pw_hash
-  query = 'INSERT INTO users (username, email, pw_hash) VALUES (?, ?, ?)' # inserting the new user into the table and hashing the password
+  pw_hash = BCrypt::Password.create(password)
+  sql = 'INSERT INTO users (username, email, pw_hash) VALUES ($1, $2, $3)'
 
   begin
-    db.execute(query, [username, email, pw_hash])
-  rescue SQLite3::Exception => e
+    DB_CONN.exec_params(sql, [username, email, pw_hash])
+  rescue PG::Exception => e
     puts "Error in add_user: #{e}"
-  ensure
-    db&.close
   end
 end
