@@ -6,9 +6,6 @@ on:
     branches: [master]
   push:
     branches: [release]
-  workflow_run:
-    workflows: [full_cd_cd]
-    types: [completed]
   workflow_dispatch:
   
 jobs:
