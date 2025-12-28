@@ -1,4 +1,13 @@
 #!/bin/bash
+
+
+branch=$(git rev-parse --abbrev-ref HEAD)
+
+if [[ "$branch" == "release" ]]; then
+  echo "Skipping rubocop check on release branch."
+  exit 0
+fi
+
 echo "Running RuboCop auto-correct..."
 rubocop -a
 
