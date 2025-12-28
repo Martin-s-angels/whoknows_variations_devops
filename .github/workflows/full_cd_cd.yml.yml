@@ -37,7 +37,7 @@ jobs:
 
   deliver:
     runs-on: ubuntu-latest #build vm
-    needs: deploy-to-release
+    needs: merge-with-release
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/release' }}
     steps:
       - name: Checkout repository
@@ -65,7 +65,7 @@ jobs:
         run: docker compose -f who_knows/.devops/docker-compose.prod.yml push 
 
   deploy:
-    needs: build-and-push
+    needs: deliver
     if: ${{ github.event_name == 'workflow_run' || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     env:
@@ -120,6 +120,7 @@ jobs:
         env:
           SSH_USER: ${{ secrets.SSH_USER }}
           SSH_HOST: ${{ secrets.SSH_HOST }}
+
 
 
 
