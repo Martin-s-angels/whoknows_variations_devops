@@ -9,7 +9,7 @@ require_relative 'app/controller/controller'
 require_relative 'app/model/weather'
 
 Dotenv.load('dotenv/.env')
-
+disable :protection
 set :port, 8080
 set :views, 'app/views/templates/'
 
