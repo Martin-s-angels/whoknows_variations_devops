@@ -6,6 +6,13 @@ require 'prometheus/middleware/exporter'
 
 require_relative '../app/controller/controller'
 
+ENV['APP_ENV'] = 'production'
+
+use Rack::Protection::HostAuthorization, permitted_hosts: [
+  'martins-angels.dk',
+  'www.martins-angels.dk'
+]
+
 set :root, '/..'
 set :views, 'app/views/templates/'
 
