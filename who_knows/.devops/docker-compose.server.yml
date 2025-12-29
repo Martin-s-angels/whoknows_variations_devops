@@ -7,8 +7,7 @@ services:
     networks:
       - my_network
     volumes:
-    - /home/adminuser/env/.env:/who_knows/.dotenv/.env:ro #.env (defined in gh actions) 
-    - /home/adminuser/db/whoknows.db:/who_knows/db/whoknows.db #db
+    - /home/adminuser/env/.env:/who_knows/dotenv/.env:ro #.env (defined in gh actions) 
     depends_on:
     - database
 
