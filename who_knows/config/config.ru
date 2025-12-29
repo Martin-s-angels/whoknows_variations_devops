@@ -6,9 +6,15 @@ require 'prometheus/middleware/exporter'
 
 require_relative '../app/controller/controller'
 
-ENV['APP_ENV'] = 'production'
+use Rack::ForwardedHeaders
 
-use Rack::Protection::HostAuthorization, permitted_hosts: nil
+use Rack::Protection::HostAuthorization,
+    permitted_hosts: [
+      'martins-angels.dk',
+      'www.martins-angels.dk',
+      '172.167.141.167'
+    ],
+    allow_if: ->(env) { !!env['HTTP_X_FORWARDED_HOST'] }
 
 set :root, '/..'
 set :views, 'app/views/templates/'
