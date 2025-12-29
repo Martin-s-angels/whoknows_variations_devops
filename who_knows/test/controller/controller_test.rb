@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-ENV['APP_ENV'] = 'test'
+# ENV['APP_ENV'] = 'test'
 
 require 'test/unit'
 require 'rack/test'
