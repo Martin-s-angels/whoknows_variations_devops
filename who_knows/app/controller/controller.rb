@@ -17,7 +17,7 @@ base_url = ENV['BASE_URL']
 
 set :port, 8080
 set :public_folder, File.join(File.dirname(__FILE__), '../views/public')
-enable :sessions
+disable :sessions
 
 # SERVE HTML PAGES:
 
