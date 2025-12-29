@@ -11,13 +11,12 @@ use Rack::Protection, except: 'martins-angels.dk'
 
 # use Rack::ForwardedHeaders
 
+use Rack::Protection
 use Rack::Protection::HostAuthorization,
-    permitted_hosts: [
-      'martins-angels.dk',
-      'www.martins-angels.dk',
-      '172.167.141.167'
-    ],
-    allow_if: ->(env) { !!env['HTTP_X_FORWARDED_HOST'] }
+    permitted_hosts: %w[
+      martins-angels.dk
+      www.martins-angels.dk
+    ]
 
 set :root, '/..'
 set :views, 'app/views/templates/'
