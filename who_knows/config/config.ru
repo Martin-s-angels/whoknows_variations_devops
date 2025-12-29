@@ -7,7 +7,7 @@ require 'prometheus/middleware/exporter'
 require_relative '../app/controller/controller'
 require 'rack/protection'
 
-use Rack::Protection, except: 'martins-angels.dk'
+# use Rack::Protection, except: 'martins-angels.dk'
 
 # use Rack::ForwardedHeaders
 
