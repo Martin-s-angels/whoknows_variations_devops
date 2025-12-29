@@ -10,6 +10,15 @@ ENV['APP_ENV'] = 'production'
 
 use Rack::Protection::HostAuthorization, permitted_hosts: [
   'martins-angels.dk',
+  'www.martins-angels.dk',
+  '172.167.141.167'
+]
+use Rack::Protection::HostAuthorization, ip_hosts: [
+  '172.167.141.167'
+]
+
+use Rack::Protection::HostAuthorization, domain_hosts: [
+  'martins-angels.dk',
   'www.martins-angels.dk'
 ]
 
