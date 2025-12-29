@@ -1,3 +1,17 @@
+<% if locals[:weather] && weather["current"] %>
+  <div class="weather-widget-container">
+    <a href="/weather" class="weather-widget">
+      <div class="weather-widget-icon">
+        <img src="https:<%= weather["current"]["condition"]["icon"] %>" alt="Weather">
+      </div>
+      <div class="weather-widget-info">
+        <span class="weather-widget-temp"><%= weather["current"]["temp_c"] %>°C</span>
+        <span class="weather-widget-text"><%= weather["current"]["condition"]["text"] %></span>
+      </div>
+    </a>
+  </div>
+<% end %>
+
 <div>
   <input id="search-input" placeholder="Search..." value="<%= query.to_s %>"/>
   <button id="search-button" onclick="makeSearchRequest()">Search</button>

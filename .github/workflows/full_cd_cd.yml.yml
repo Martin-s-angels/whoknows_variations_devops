@@ -1,0 +1,134 @@
+name: full_cd_cd
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [master]
+  workflow_dispatch:
+  
+jobs:
+  merge-with-release:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+    if: ${{ github.event.pull_request.merged && 
+      contains(github.event.pull_request.labels.*.name, 'ready-for-release') }} # release label must be added to PR
+       
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v5 
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git user
+        run: |
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+
+      - name: push to release      
+        run: |
+          git fetch --all 
+          git checkout release
+          git merge origin/master
+          git push 
+
+  deliver:
+    runs-on: ubuntu-latest #build vm
+    needs: merge-with-release
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: go to release       
+        run: |
+          git fetch --all 
+          git checkout release
+
+      # login on GH. with CR_PAT
+      # this might work or we just have to do it the way he did it where we have to login 
+      - name: Log in to GitHub Container Registry
+        run:  echo ${{ secrets.CR_PAT }} | docker login ghcr.io -u ${{ secrets.DOCKER_GITHUB_USERNAME }} --password-stdin
+
+          # .env file:
+      - name: Create .env file
+        # input our .env stuff here 
+        run: |
+          echo "GREETING=Hello from Github Action" >> who_knows/.devops/.env
+          echo "POSTGRES_USER=${{ secrets.POSTGRES_USER}}" >> who_knows/.devops/.env
+          echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD}}" >> who_knows/.devops/.env
+          echo "POSTGRES_DB=${{ secrets.POSTGRES_DB}}" >> who_knows/.devops/.env
+
+      # build and push images
+      - name: Build images
+        run: docker compose -f who_knows/.devops/docker-compose.prod.yml build
+
+      - name: Push images
+        run: docker compose -f who_knows/.devops/docker-compose.prod.yml push 
+
+  deploy:
+    needs: deliver
+    runs-on: ubuntu-latest
+    env:
+      SSH_USER: ${{ secrets.SSH_USER }} # SSH user needs sudo
+      SSH_HOST: ${{ secrets.SSH_HOST }}
+
+    steps:
+
+      - name: go to release       
+        run: |
+          git fetch --all 
+          git checkout release
+
+      - name: Add SSH key to GitHub runner
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }} #?? not public key?
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/ssh_key
+          chmod 600 ~/.ssh/ssh_key
+        
+      # .env file:
+      - name: Create .env file
+        # input our .env stuff here 
+        run: |
+            echo "GREETING=Hello from Github Action" >> .env
+            echo "WEATHER_API_KEY=${{ secrets.WEATHER_API_KEY}}" >> .env
+            echo "BASE_URL=${{ secrets.BASE_URL}}" >> .env
+            echo "DB_URI_PROD=${{ secrets.DB_URI_PROD}}" >> .env
+
+
+      - name: Transfer .env file to server
+        run: |
+          scp -i ~/.ssh/ssh_key -o StrictHostKeyChecking=no .env $SSH_USER@$SSH_HOST:~/env/.env
+        env:
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+
+      # copy docker-compose file to server
+      - name: Check Out Repository
+        uses: actions/checkout@v5
+    
+      - name: Transfer Docker compose file to server
+        run: |
+          scp -i ~/.ssh/ssh_key -o StrictHostKeyChecking=no who_knows/.devops/docker-compose.server.yml $SSH_USER@$SSH_HOST:docker-compose.server.yml
+        env: 
+            SSH_USER: ${{ secrets.SSH_USER }}
+            SSH_HOST: ${{ secrets.SSH_HOST }}
+      
+      # deploy
+      - name: Deploy to server
+        run: |
+          ssh -i ~/.ssh/ssh_key -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST << "EOF"
+            echo ${{ secrets.CR_PAT }} | docker login ghcr.io -u ${{ secrets.DOCKER_GITHUB_USERNAME }} --password-stdin
+            docker-compose -f docker-compose.server.yml pull
+            docker-compose -f docker-compose.server.yml up -d
+          EOF
+        env:
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+
+
+
+
+

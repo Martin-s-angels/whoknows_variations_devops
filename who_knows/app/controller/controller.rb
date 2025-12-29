@@ -6,14 +6,17 @@ require_relative '../model/search'
 require 'json'
 require 'sqlite3'
 require_relative '../model/users'
+require_relative '../model/weather'
 require_relative 'metrics'
 require 'sinatra/flash'
 require 'httparty'
+require_relative '../../db/connection'
 
-Dotenv.load('../who_knows/.dotenv/.env') # environment variables.
+Dotenv.load('../../dotenv/.env') # environment variables.
 base_url = ENV['BASE_URL']
 
 set :port, 8080
+set :public_folder, File.join(File.dirname(__FILE__), '../views/public')
 enable :sessions
 
 # SERVE HTML PAGES:
@@ -21,9 +24,15 @@ enable :sessions
 get '/' do
   query = params['q'] # request parameter
   search_results = []
-  logged_in = false; # using the same variable names for erb, always
 
+  logged_in = false; # using the same variable names for erb, always
   logged_in = true if session[:logged_in]
+
+  weather = begin
+    fetch_weather
+  rescue StandardError
+    nil
+  end # fetch weather
 
   if query && !query.empty?
     start_time = Time.now
@@ -38,6 +47,7 @@ get '/' do
 
     if search_results.empty?
       SEARCH_REQUESTS_NOT_FOUND.increment
+      missing_search(query)
     else
       SEARCH_REQUESTS_FOUND.increment
     end
@@ -45,7 +55,7 @@ get '/' do
     SEACH_DURATION.observe(Time.now - start_time)
   end
 
-  erb :search, locals: { query: query, search_results: search_results, logged_in: logged_in }
+  erb :search, locals: { query: query, search_results: search_results, logged_in: logged_in, weather: weather }
 end
 
 get '/register' do
@@ -65,6 +75,14 @@ get '/api/search' do
   result = search(query)
   puts "output search function was: #{result}"
   result.to_json
+end
+
+get '/weather' do
+  weather = fetch_weather
+  error = nil
+
+  error = 'unable to fetch weather data' unless weather
+  erb :weather, locals: { weather: weather, error: error, logged_in: session[:logged_in] }
 end
 
 get '/api/weather' do
@@ -115,7 +133,7 @@ post '/api/login' do
 
   else # succesful
     session[:logged_in] = true
-    flash[:succes] = "succesfully logged in as#{username}"
+    flash[:succes] = "Succesfully logged in as #{username}"
   end
 
   redirect '/', 303
@@ -123,7 +141,12 @@ end
 
 get '/api/logout' do
   session[:logged_in] = false
-  flash[:succes] = 'succesfully logged out'
+  flash[:succes] = 'Succesfully logged out'
 
   redirect '/', 303
+end
+
+get '/about' do
+  # serve about page
+  erb :about
 end

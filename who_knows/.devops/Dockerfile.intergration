@@ -1,0 +1,8 @@
+FROM ruby:3.4.4
+
+WORKDIR /who_knows
+COPY . .
+
+RUN bundle install
+
+CMD bundle exec rubocop || true && bundle exec ruby test/controller/controller_test.rb
