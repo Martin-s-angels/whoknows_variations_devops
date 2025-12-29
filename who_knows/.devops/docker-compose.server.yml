@@ -26,19 +26,21 @@ services:
       - /etc/letsencrypt:/etc/letsencrypt:ro
 
   database:
-    image: ghcr.io/martin-s-angels/whoknows_variations_server:latest
+    image: ghcr.io/martin-s-angels/whoknows_variations_database:latest
     restart: always
     container_name: whoknows_database
     ports:
       - "5432:5432"
+    env_file:
+      - env/.env
     volumes: 
       - database:/var/lib/postgresql
     networks:
       - my_network
     extra_hosts:
       - "host.docker.internal:host-gateway"
-  volumes:
-    database:
+volumes:
+  database:
 
 
 networks:
