@@ -11,12 +11,6 @@ require 'rack/protection'
 
 # use Rack::ForwardedHeaders
 #
-use Rack::Protection::HostAuthorization,
-    permitted_hosts: %w[
-      martins-angels.dk
-      www.martins-angels.dk
-    ]
-
 set :root, '/..'
 set :views, 'app/views/templates/'
 
