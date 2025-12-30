@@ -2,7 +2,7 @@ import knex from 'knex';
 import config from '../knexfile.js';
 
 const sqliteDb = knex(config.sqlite);
-const pgDb = knex(config.development);
+const pgDb = knex(config.production);
 
 //convert sqlite (html)pages to postgres 
 export async function up() {

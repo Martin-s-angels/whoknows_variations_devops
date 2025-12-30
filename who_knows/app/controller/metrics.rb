@@ -26,3 +26,19 @@ prometheus.register(SEACH_DURATION)
 # histogram on how long a user is logged in ?
 # how long from register to created user ?
 # db time
+
+AUTH_EVENTS = Prometheus::Client::Counter.new(
+  :auth_events_total,
+  docstring: 'Authentication events',
+  labels: [:event]
+)
+
+prometheus.register(AUTH_EVENTS)
+
+SESSIONS = Prometheus::Client::Counter.new(
+  :sessions_total,
+  docstring: 'Session events',
+  labels: [:event]
+)
+
+prometheus.register(SESSIONS)
