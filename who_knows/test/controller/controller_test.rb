@@ -1,44 +1,33 @@
 # frozen_string_literal: true
 
-# ENV['APP_ENV'] = 'test'
-
 require 'test/unit'
-require 'rack/test'
 require 'mocha/test_unit'
-require 'pg'
 require_relative '../../app/controller/controller'
 
-# set :views, '../../app/view/templates' # works for now.
+class SearchTest < Test::Unit::TestCase
+  def setup
+    @mock_conn = mock('PG::Connection')
+    Object.send(:define_method, :db_conn) { @mock_conn }
+  end
 
-# base_url = "localhost:8080"
+  def test_search_returns_results
+    fake_result = [
+      { 'title' => 'Test', 'url' => 'https://test.com', 'language' => 'en', 'content' => 'Some content' }
+    ]
+    @mock_conn.stubs(:exec_params).returns(fake_result)
 
-# class DemoTest < Test::Unit::TestCase
-# include Rack::Test::Methods
+    results = search('test')
+    assert_equal 1, results.size
+    assert_equal 'Test', results.first[:title]
+  end
 
-# def test_search_endpoint
-# get '/', { q: 'test' } # Mock web layer
+  def test_missing_search_inserts_when_no_rows
+    fake_select_result = mock('PG::Result')
+    fake_select_result.stubs(:ntuples).returns(0)
+    @mock_conn.stubs(:exec_params).returns(fake_select_result)
 
-# assert last_response.ok?
-# assert last_response.body.include?('Mocked result')
-# end
-# end
+    @mock_conn.expects(:exec_params).with('INSERT INTO pages_not_found (qury) VALUES ($1)', ['not_found_query'])
 
-# class HelloWorldTest < Test::Unit::TestCase
-#   include Rack::Test::Methods
-#
-#   def app
-#     Sinatra::Application
-#   end
-#
-#   def test_it_says_hello_world
-#     get '/'
-#     assert last_response.ok?
-#     assert_equal 'Hello World', last_response.body
-#   end
-#
-#   def test_it_says_hello_to_a_person
-#     get '/', :name => 'Simon'
-#     assert last_response.body.include?('Simon')
-#   end
-# end
-#
+    missing_search('not_found_query')
+  end
+end

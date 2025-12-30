@@ -34,10 +34,12 @@ def get_user(username)
 end
 
 def get_user_by_email(email)
+  return unless db_conn
+
   sql = 'SELECT * FROM users WHERE email = $1'
 
   begin
-    result = DB_CONN.exec_params(sql, [email])
+    result = db_conn.exec_params(sql, [email])
     return nil if result.ntuples.zero?
 
     row = result[0]
@@ -49,11 +51,13 @@ def get_user_by_email(email)
 end
 
 def add_user(username, email, password)
+  return unless db_conn
+
   pw_hash = BCrypt::Password.create(password)
   sql = 'INSERT INTO users (username, email, pw_hash) VALUES ($1, $2, $3)'
 
   begin
-    DB_CONN.exec_params(sql, [username, email, pw_hash])
+    db_conn.exec_params(sql, [username, email, pw_hash])
   rescue PG::Exception => e
     puts "Error in add_user: #{e}"
   end
