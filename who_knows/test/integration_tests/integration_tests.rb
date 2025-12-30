@@ -4,7 +4,7 @@ require_relative '../../app/controller/controller'
 
 ENV['APP_ENV'] = 'test'
 
-class SearchE2ETest < Test::Unit::TestCase
+class IntegrationTests < Test::Unit::TestCase
   include Rack::Test::Methods
 
   def app
