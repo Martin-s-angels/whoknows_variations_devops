@@ -2,7 +2,7 @@ import knex from 'knex';
 import config from '../knexfile.js';
 
 const sqliteDb = knex(config.sqlite); //connections from knexfile.js
-const pgDb = knex(config.development);//postgres connection
+const pgDb = knex(config.production);//postgres connection
 
 //convert sqlite users to postgres
 export async function up() {

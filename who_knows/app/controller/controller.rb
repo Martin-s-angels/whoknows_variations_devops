@@ -101,18 +101,25 @@ post '/api/register' do
 
   if !username || username.empty?
     error = 'You have to enter a username'
+    AUTH_EVENTS.increment(labels: { event: 'register_attempt' })
   elsif !email || email.empty? || !email.include?('@')
     error = 'You have to enter a valid email address'
+    AUTH_EVENTS.increment(labels: { event: 'register_attempt' })
   elsif !password || password.empty?
     error = 'You have to enter a password'
+    AUTH_EVENTS.increment(labels: { event: 'register_attempt' })
   elsif password != password2
     error = 'The two passwords do not match'
+    AUTH_EVENTS.increment(labels: { event: 'register_attempt' })
   elsif get_user(username)
     error = 'The username is already taken'
+    AUTH_EVENTS.increment(labels: { event: 'register_attempt' })
   elsif get_user_by_email(email)
     error = 'The email address is already in use'
+    AUTH_EVENTS.increment(labels: { event: 'register_attempt' })
   else
     add_user(username, email, password)
+    AUTH_EVENTS.increment(labels: { event: 'register_success' })
     # flash 'successfully registered'
     redirect '/'
   end
@@ -123,18 +130,24 @@ end
 post '/api/login' do
   username = params['username']
   password = params['password']
-
+  AUTH_EVENTS.increment(labels: { event: 'login_attempt' })
   user = get_user(username) # db query.
 
   if user.nil? # if no user.
     flash[:error] = 'Invalid username'
 
+    AUTH_EVENTS.increment(labels: { event: 'login_user_not_found' })
+
   elsif user.password_valid(password) == false # password invalid
     flash[:error] = 'Invalid password'
+
+    AUTH_EVENTS.increment(labels: { event: 'login_bad_password' })
 
   else # succesful
     session[:logged_in] = true
     flash[:succes] = "Succesfully logged in as #{username}"
+    AUTH_EVENTS.increment(labels: { event: 'login_success' })
+    SESSIONS.increment(labels: { event: 'login' })
   end
 
   redirect '/', 303
@@ -143,7 +156,7 @@ end
 get '/api/logout' do
   session[:logged_in] = false
   flash[:succes] = 'Succesfully logged out'
-
+  SESSIONS.increment(labels: { event: 'logout' })
   redirect '/', 303
 end
 
