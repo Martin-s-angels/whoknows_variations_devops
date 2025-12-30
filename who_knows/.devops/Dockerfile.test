@@ -1,0 +1,13 @@
+FROM ruby:3.4.4
+
+WORKDIR /who_knows
+COPY . .
+
+RUN bundle install
+
+EXPOSE 8080
+
+CMD sh -c "\
+  bundle exec rackup ./config/config.ru -o 0.0.0.0 -p 8080 & \
+  sleep 2 && \
+  bundle exec ruby test/integration_tests/integration_tests.rb"

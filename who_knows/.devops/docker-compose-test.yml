@@ -1,0 +1,38 @@
+version: '3.9'
+
+services:
+  whoknows_app_test:
+    build:
+      context: ..
+      dockerfile: .devops/Dockerfile.test
+    image: whoknows_test
+    environment:
+      APP_ENV: test
+      DB_URI_TEST: postgres://postgres:password@database_test:5432/whoknows_test
+      BASE_URL: "http://127.0.0.1:8080"
+    depends_on:
+      - database_test
+    networks:
+      - test_network
+
+  database_test:
+    build:
+      context: ..
+      dockerfile: .devops/Dockerfile.database
+    environment:
+      POSTGRES_DB: whoknows_test
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5433:5432" 
+    volumes:
+      - whoknows_test_data:/var/lib/postgresql
+    networks:
+      - test_network
+
+volumes:
+  whoknows_test_data:
+
+networks:
+  test_network:
+    driver: bridge
