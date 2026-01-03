@@ -23,7 +23,7 @@ def get_user(username)
   sql = 'SELECT * FROM users WHERE username = $1'
 
   begin
-    result = DB_CONN.exec_params(sql, [username])
+    result = db_conn.exec_params(sql, [username])
     return nil if result.ntuples.zero?
 
     row = result[0]
