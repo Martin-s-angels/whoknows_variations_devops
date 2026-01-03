@@ -8,6 +8,12 @@ require 'dotenv/load'
 require_relative 'app/controller/controller'
 require_relative 'app/model/weather'
 
+configure do
+  set :protection, except: :host_authorization
+  # Or if you want to keep all protections except host:
+  # set :protection, except: [:host_authorization, :frame_options]
+end
+
 Dotenv.load('dotenv/.env')
 disable :protection
 set :port, 8080
