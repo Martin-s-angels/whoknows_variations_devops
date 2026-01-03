@@ -1,5 +1,6 @@
 require 'dotenv'
 require 'bcrypt'
+require 'pg'
 require_relative '../../db/connection'
 Dotenv.load("#{__dir__}/../dotenv/.env")
 
@@ -27,7 +28,7 @@ def get_user(username)
 
     row = result[0]
     Users.new(row['id'], row['username'], row['email'], row['pw_hash'])
-  rescue PG::Exception => e
+  rescue PG::Error => e
     puts "Error in get_user: #{e}"
     nil
   end
@@ -58,7 +59,7 @@ def add_user(username, email, password)
 
   begin
     db_conn.exec_params(sql, [username, email, pw_hash])
-  rescue PG::Exception => e
+  rescue PG::Error => e
     puts "Error in add_user: #{e}"
   end
 end
