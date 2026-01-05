@@ -6,9 +6,9 @@
 
 | Workflow | Status |
 | :--- | :--- |
-| **Release** | [![.github/workflows/release.yml](https://github.com/Martin-s-angels/whoknows_variations_devops/actions/workflows/release.yml/badge.svg)](https://github.com/Martin-s-angels/whoknows_variations_devops/actions/workflows/release.yml) |
-| **Continuous Delivery** | [![continuous_delivery](https://github.com/Martin-s-angels/whoknows_variations_devops/actions/workflows/continuous_delivery.yml/badge.svg)](https://github.com/Martin-s-angels/whoknows_variations_devops/actions/workflows/continuous_delivery.yml) |
-| **Continuous Deployment** | [![continuous_deployment](https://github.com/Martin-s-angels/whoknows_variations_devops/actions/workflows/continuous_deployment.yml/badge.svg)](https://github.com/Martin-s-angels/whoknows_variations_devops/actions/workflows/continuous_deployment.yml) |
+| **Release** | [![.github/workflows/release.yml](https://github.com/Martin-s-angels/whoknows_variations_devops/actions/workflows/release.yml/badge.svg)](https://github.com/Martin-s-angels/whoknows_variations_devops/actions/workflows/full_cd_cd.yml) |
+| **Continuous Delivery** | [![continuous_delivery](https://github.com/Martin-s-angels/whoknows_variations_devops/actions/workflows/continuous_delivery.yml/badge.svg)](https://github.com/Martin-s-angels/whoknows_variations_devops/actions/workflows/full_cd_cd.yml ) |
+| **Continuous Deployment** | [![continuous_deployment](https://github.com/Martin-s-angels/whoknows_variations_devops/actions/workflows/continuous_deployment.yml/badge.svg)](https://github.com/Martin-s-angels/whoknows_variations_devops/actions/workflows/full_cd_cd.yml ) |
 | **Continuous Integration** | [![.github/workflows/continuous_integration.yml](https://github.com/Martin-s-angels/whoknows_variations_devops/actions/workflows/continuous_integration.yml/badge.svg)](https://github.com/Martin-s-angels/whoknows_variations_devops/actions/workflows/continuous_integration.yml) |
 
 ---
